@@ -57,6 +57,8 @@ function checkBoxClick() {
 
 function showTab(n) {
 
+n=5;
+currentTab=5;
 
   var x = document.getElementsByClassName("form-step");
   $("#form_step-" + parseInt(n + 1)).fadeIn(800);
@@ -379,6 +381,7 @@ function validateMail() {
 
 function sendMail() {
 
+
   if (!validateMail()) return;
 
   emailjs.init("user_8Cr1IxiKSaA9gSvYkmq9Q");
@@ -404,10 +407,16 @@ function sendMail() {
     data: JSON.stringify(data),
     contentType: 'application/json'
   }).done(function () {
-    // alert('Your mail is sent!');
+    document.getElementById("sendMailSuccess").style.display = "block";
+    document.getElementById("sendMail").style.display = "none";
   }).fail(function (error) {
-    // alert('Oops... ' + JSON.stringify(error));
+    document.getElementById("sendMailUnsuccess").style.display = "block";
+    document.getElementById("sendMail").style.display = "none";
   });
 
+}
 
+function trySendMailAgain(){
+  document.getElementById("sendMailUnsuccess").style.display = "none";
+  document.getElementById("sendMail").style.display = "block";
 }
