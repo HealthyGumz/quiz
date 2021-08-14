@@ -525,7 +525,7 @@ span{
 }
 
  .callbtn {
-  margin-right: 55px;
+  margin-right: 45px;
   margin-left: auto;
   max-width: 100%;
 }
@@ -544,8 +544,39 @@ span{
 
 .sendMailBlock .inputBlock{
  width: 45%;
-  padding: 0px 0px 20px 40px;
+  padding: 0px 0px 20px 35px;
+  font: normal normal 400 16px/22px Overpass;
 }
+
+.sendMailSuccess{
+  display: block;
+  margin:  40px auto;
+} 
+
+.textSendMailSuccess{
+  text-align:center;
+  margin:  51px auto;
+  font:normal normal 400 22px/27px Overpass;
+}
+
+.sendMailUnsuccess{
+  display: block;
+  margin:  30px auto;
+} 
+
+.textSendMailUnsuccess{
+  text-align:center;
+  margin:  20px auto;
+  padding: 0 30px;
+  font:normal normal 400 20px/25px Overpass;
+}
+
+#trySendMailAgain{
+  display: block;
+  margin:  0 auto;
+  width: 50%;
+}
+
 
 #sendByMainBtn{
   width: 100%;
@@ -559,9 +590,12 @@ label {
   padding-left: 10px;
 }
 input[type="text"], input[type="email"] {
+  border: 1px solid black;
   border-radius:40px;
+  padding: 5px 15px;
   outline: none;
-  padding: 5px 5px;
+  /* font: normal normal 400 16px/22px Overpass; */
+  /* color:#881c1c; */
 }
 
 
