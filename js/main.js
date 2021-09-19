@@ -34,6 +34,21 @@ function init() {
     // return false;
   });
 
+  window.onresize = function () {
+    // width = document.body.clientWidth;
+
+    // if (width > 1353) {
+    //   $('#curved').elipText({ radius: 265 });
+    // }
+    // else  if (width > 1160) {
+    //   $('#curved').elipText({ radius: 300 });
+    // }
+    // else {
+    //   $('#curved').elipText({ radius: 160 });
+    // }
+    //initQauge(5);
+  }
+
 
   var x = document.getElementsByClassName("form-step");
 
@@ -56,7 +71,8 @@ function checkBoxClick() {
 
 
 function showTab(n) {
-
+  // n = 5;
+  // currentTab = 5;
 
   var x = document.getElementsByClassName("form-step");
   $("#form_step-" + parseInt(n + 1)).fadeIn(800);
@@ -71,10 +87,10 @@ function showTab(n) {
     document.getElementById("stepActions").style.visibility = "visible";
   }
 
-  if (n == 0 || n==5) {
+  if (n == 0 || n == 5) {
     document.getElementById("prevBtn").style.visibility = "hidden";
   }
-  else  {
+  else {
     document.getElementById("prevBtn").style.visibility = "visible";
   }
 
@@ -105,6 +121,13 @@ function tryAgain() {
 
   document.getElementById("stepActionsResult").style.display = "none";
   document.getElementById("stepActions").style.display = "flex";
+
+  document.getElementById("sendMailSuccess").style.display = "none";
+  document.getElementById("sendMailUnsuccess").style.display = "none";
+  document.getElementById("sendMail").style.display = "block";
+
+  document.getElementById("inputName").value="";
+  document.getElementById("inputMail").value="";
 
   currentTab = 0;
 
@@ -208,10 +231,10 @@ function checkResult() {
 
 
   if (width > 767) {
-    document.getElementById("stepActionsResult").style.display = "block";
+    document.getElementById("stepActionsResult").style.display = "flex";
   }
   else {
-    document.getElementById("stepActionsResult").style.display = "flex";
+    document.getElementById("stepActionsResult").style.display = "block";
   }
 
   document.getElementById("stepActions").style.display = "none";
@@ -414,7 +437,7 @@ function sendMail() {
 
 }
 
-function trySendMailAgain(){
+function trySendMailAgain() {
   document.getElementById("sendMailUnsuccess").style.display = "none";
   document.getElementById("sendMail").style.display = "block";
 }
