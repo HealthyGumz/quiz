@@ -71,8 +71,8 @@ function checkBoxClick() {
 
 
 function showTab(n) {
-  // n = 5;
-  // currentTab = 5;
+  n = 5;
+  currentTab = 5;
 
   var x = document.getElementsByClassName("form-step");
   $("#form_step-" + parseInt(n + 1)).fadeIn(800);
@@ -379,20 +379,24 @@ function validateMail() {
 
   if (name.value == "") {
     isValidate = false;
+    name.classList.remove("circle-mail");
     name.classList.add("error-circle-mail");
   }
   else {
     isValidate = true;
     name.classList.remove("error-circle-mail");
+    name.classList.add("circle-mail");
   }
 
   if (mail.value == "") {
     isValidate = false;
+    mail.classList.remove("circle-mail");
     mail.classList.add("error-circle-mail");
   }
   else {
     isValidate = true;
     mail.classList.remove("error-circle-mail");
+    mail.classList.add("circle-mail");
   }
 
   return isValidate;
