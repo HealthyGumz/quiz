@@ -71,8 +71,8 @@ function checkBoxClick() {
 
 
 function showTab(n) {
-  n = 5;
-  currentTab = 5;
+  // n = 5;
+  // currentTab = 5;
 
   var x = document.getElementsByClassName("form-step");
   $("#form_step-" + parseInt(n + 1)).fadeIn(800);
@@ -234,7 +234,7 @@ function checkResult() {
     document.getElementById("stepActionsResult").style.display = "flex";
   }
   else {
-    document.getElementById("stepActionsResult").style.display = "block";
+    document.getElementById("stepActionsResultMob").style.display = "block";
   }
 
   document.getElementById("stepActions").style.display = "none";
@@ -335,7 +335,8 @@ function validateForm(currentTab) {
 
     }
     else {
-      if (checkboxes.length == 0 && !isDiabetesCheck) {
+      // if (checkboxes.length == 0 && !isDiabetesCheck) {
+      if (checkboxes.length == 0 ) {
         circles = document.querySelectorAll('div[name="' + radioGroupIndex + '"]');
         circles.forEach(element => {
           element.classList.remove("radio-circle");
@@ -417,7 +418,7 @@ function sendMail() {
 
   var data = {
     service_id: 'service_wrag93q',
-    template_id: 'template_3xzeugn',
+    template_id: 'template_e87xred',
     user_id: 'user_8Cr1IxiKSaA9gSvYkmq9Q',
     template_params: {
       'from_name': 'HealthyGumz',
