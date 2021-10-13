@@ -1,7 +1,7 @@
 var currentTab = 0;
 let arrStepHeaders = ['About Me', 'Lifestyle', 'Dental Health', 'Warning Signs I', 'Warning Signs II', 'Health History'];
 var width = 0;
-
+var testResult=0;
 
 function init() {
 
@@ -22,31 +22,15 @@ function init() {
   $('.disclaimer').click(function () {
     $('.down-arrow').toggleClass('invert');
     $('.disclaimer-text').slideToggle(300);
-    // return false;
   });
 
 
   $('.disclaimer-finish').click(function () {
     $('.down-arrow-finish').toggleClass('invert');
-    // $('.step-content').toggleClass('invert-finish');
-    // $('#stepActions').toggleClass('invert-finish');
     $('.disclaimer-text-finish').slideToggle(500);
-    // return false;
   });
 
   window.onresize = function () {
-    // width = document.body.clientWidth;
-
-    // if (width > 1353) {
-    //   $('#curved').elipText({ radius: 265 });
-    // }
-    // else  if (width > 1160) {
-    //   $('#curved').elipText({ radius: 300 });
-    // }
-    // else {
-    //   $('#curved').elipText({ radius: 160 });
-    // }
-    //initQauge(5);
   }
 
 
@@ -95,7 +79,6 @@ function showTab(n) {
   }
 
 
-
   document.getElementById("stepHeaders").innerHTML = arrStepHeaders[n];
 
   document.getElementById("stepIndex").innerHTML = "Step " + (n + 1) + " /6";
@@ -126,8 +109,8 @@ function tryAgain() {
   document.getElementById("sendMailUnsuccess").style.display = "none";
   document.getElementById("sendMail").style.display = "block";
 
-  document.getElementById("inputName").value="";
-  document.getElementById("inputMail").value="";
+  document.getElementById("inputName").value = "";
+  document.getElementById("inputMail").value = "";
 
   currentTab = 0;
 
@@ -154,11 +137,6 @@ function nextPrev(n) {
 
     currentTab = currentTab + n;
 
-    // if (n == - 1) {
-    //   document.getElementById("nextBtn").innerHTML = "Next";
-    // }
-
-    // if (document.getElementById("stepActionsFinish").style.visibility == "visible") {
     if (currentTab == 6) {
       checkResult();
     }
@@ -242,10 +220,6 @@ function checkResult() {
   var nav = document.getElementsByClassName("nav-step")
   nav[nav.length - 1].className = nav[nav.length - 1].className += " current";
 
-  // for (i = 0; i < nav.length; i++) {
-  //   nav[i].className += " disabled";
-  // }
-
   document.getElementById("stepIndex").innerHTML = "Step 6/6";
   document.getElementById("stepHeaders").innerHTML = "Result";
 
@@ -263,9 +237,9 @@ function checkResult() {
     resultlDescription = 'Your score suggests that you may be at high risk of having gum disease. Patients with gum disease are more likely to develop related chronic medical conditions.  Your score implies that your gum health will get worse without professional care. To take action towards having better oral and overall health, click on the links below:';
   };
 
-
   initQauge(result);
 
+  testResult=result;
   document.getElementById("textResult").innerHTML = resultlDescription;
 }
 
@@ -335,8 +309,7 @@ function validateForm(currentTab) {
 
     }
     else {
-      // if (checkboxes.length == 0 && !isDiabetesCheck) {
-      if (checkboxes.length == 0 ) {
+      if (checkboxes.length == 0) {
         circles = document.querySelectorAll('div[name="' + radioGroupIndex + '"]');
         circles.forEach(element => {
           element.classList.remove("radio-circle");
@@ -406,7 +379,7 @@ function validateMail() {
 
 
 function sendMail() {
-
+  var templateId=0;
 
   if (!validateMail()) return;
 
@@ -416,9 +389,19 @@ function sendMail() {
   var mail = document.getElementById("inputMail").value;
   var zipCode = document.getElementById("inpuZipCode").value;
 
+  if (testResult ==5) {
+    templateId="template_3pmn0jm";
+  }
+  else if (testResult ==15) {
+    templateId="template_y9ik5dc";
+  }
+  else if (testResult ==25) {
+    templateId="template_3xzeugn";
+  };
+
   var data = {
     service_id: 'service_wrag93q',
-    template_id: 'template_e87xred',
+    template_id: templateId,
     user_id: 'user_8Cr1IxiKSaA9gSvYkmq9Q',
     template_params: {
       'from_name': 'HealthyGumz',
