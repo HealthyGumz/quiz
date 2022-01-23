@@ -65,8 +65,8 @@ function checkBoxClick() {
 
 
 function showTab(n) {
-  n = 5;
-  currentTab = 5;
+  // n = 5;
+  // currentTab = 5;
 
   var x = document.getElementsByClassName("form-step");
   $("#form_step-" + parseInt(n + 1)).fadeIn(800);
