@@ -1,7 +1,17 @@
 var currentTab = 0;
 let arrStepHeaders = ['About Me', 'Lifestyle', 'Dental Health', 'Warning Signs I', 'Warning Signs II', 'Health History'];
 var width = 0;
-var testResult=0;
+var testResult = 0;
+let arrPdfQuestions = ['ARE YOU 40 YEARS OF AGE OR OLDER?', 'ARE YOU PREGNANT?', 'DOES GUM DISEASE RUN IN YOUR FAMILY?', 'HOW OFTEN DO YOU BRUSH?', 'HOW OFTEN DO YOU FLOSS?',
+  'DO YOU SMOKE, VAPE, OR USE ANY TYPE OF TOBACCO PRODUCTS?', 'HOW OFTEN DO YOU SEE YOUR DENTIST FOR CHECKUPS?', 'DO YOUR GUMS BLEED WHEN YOU BRUSH OR FLOSS?',
+  'ARE YOUR GUMS SWOLLEN OR TENDER?', 'DO ANY OF YOUR TEETH FEEL LOOSE?', 'DO YOU HAVE ANY AREAS OF GUM RECESSION (I.E. EXPOSED ROOTS, BLACK TRIANGLES BETWEEN TEETH, OR GUMS PULLING BACK)?',
+  'DO YOU HAVE FREQUENT BAD BREATH?', 'HAVE YOU HAD TEETH REMOVED IN THE PAST, DUE TO GUM DISEASE?', 'DO YOU HAVE DIABETES?', 'ARE YOUR BLOOD GLUCOSE LEVELS WELL-CONTROLLED?',
+  'HAVE YOU BEEN DIAGNOSED WITH HEART DISEASE (INCLUDING HIGH BLOOD PRESSURE, STROKE, HEART ATTACK) OR OSTEOPOROSIS?'];
+var bodyQuestions = [];
+
+var pdfBase64 = '';
+var pdfLineHeight=270;
+var pdfImagePath='';
 
 function init() {
 
@@ -55,8 +65,8 @@ function checkBoxClick() {
 
 
 function showTab(n) {
-  // n = 5;
-  // currentTab = 5;
+  n = 5;
+  currentTab = 5;
 
   var x = document.getElementsByClassName("form-step");
   $("#form_step-" + parseInt(n + 1)).fadeIn(800);
@@ -148,7 +158,6 @@ function nextPrev(n) {
 
 
 
-
 function navClick(currentNav) {
   // var x = document.getElementsByClassName("form-step");
 
@@ -188,12 +197,24 @@ function checkResult() {
   var radios = document.querySelectorAll('[id^="radiobutton"]')
   var result = 0;
   var resultlDescription = "";
+  var questionIndex=0;
+  var pdfAnswars="";
 
   for (var i = 0; i < radios.length; i++) {
     if (radios[i].checked) {
       result += parseInt(radios[i].value);
+
+      pdfAnswars=$("label[for='" + radios[i].id + "']").text();
+      bodyQuestions.push([arrPdfQuestions[questionIndex], pdfAnswars]);
+      questionIndex++;
+
+      if (radios[i].id=="radiobutton31" ){
+        pdfLineHeight=260;
+        questionIndex++;
+       }
     }
   }
+
 
   document.getElementById("mainCaption").innerHTML = 'YOUR RESULT';
 
@@ -227,19 +248,22 @@ function checkResult() {
   if (result <= 3) {
     result = 5;
     resultlDescription = 'Great News! Your score suggests that you may be at low risk of having gum disease. By maintaining a low score, you can reduce the likelihood of developing other  related medical conditions. To learn more, click on one of the buttons below:';
+    pdfImagePath="https://healthygumz.github.io/quiz/images/client_pdf/low_risk.png";
   }
   else if (result > 3 && result <= 8) {
     result = 15;
     resultlDescription = 'Your score suggests that you may be at moderate risk of having gum disease. Patients with gum disease are more likely to develop related chronic medical conditions. Your score indicates the chance that your gum health will get worse without professional care. To take the first step towards having better oral and overall health, click on the links below:';
+    pdfImagePath="https://healthygumz.github.io/quiz/images/client_pdf/moderate_risk.png"
   }
   else {
     result = 25;
     resultlDescription = 'Your score suggests that you may be at high risk of having gum disease. Patients with gum disease are more likely to develop related chronic medical conditions.  Your score implies that your gum health will get worse without professional care. To take action towards having better oral and overall health, click on the links below:';
+    pdfImagePath="https://healthygumz.github.io/quiz/images/client_pdf/high_risk.png";
   };
 
   initQauge(result);
 
-  testResult=result;
+  testResult = result;
   document.getElementById("textResult").innerHTML = resultlDescription;
 }
 
@@ -379,9 +403,11 @@ function validateMail() {
 
 
 function sendMail() {
-  var templateId=0;
+  var templateId = 0;
 
   if (!validateMail()) return;
+
+  createPdf();
 
   emailjs.init("user_8Cr1IxiKSaA9gSvYkmq9Q");
 
@@ -389,14 +415,16 @@ function sendMail() {
   var mail = document.getElementById("inputMail").value;
   var zipCode = document.getElementById("inpuZipCode").value;
 
-  if (testResult ==5) {
-    templateId="template_3pmn0jm";
+  if (testResult == 5) {
+    templateId = "template_3pmn0jm";
+    // templateId = "template_1fdd21q";
+    
   }
-  else if (testResult ==15) {
-    templateId="template_y9ik5dc";
+  else if (testResult == 15) {
+    templateId = "template_y9ik5dc";
   }
-  else if (testResult ==25) {
-    templateId="template_3xzeugn";
+  else if (testResult == 25) {
+    templateId = "template_3xzeugn";
   };
 
   var data = {
@@ -407,6 +435,7 @@ function sendMail() {
       'from_name': 'HealthyGumz',
       'to_name': name,
       'to_mail': mail,
+      'varFile': pdfBase64,
       'g-recaptcha-response': '03AHJ_ASjnLA214KSNKFJAK12sfKASfehbmfd...'
     }
   };
@@ -428,4 +457,67 @@ function sendMail() {
 function trySendMailAgain() {
   document.getElementById("sendMailUnsuccess").style.display = "none";
   document.getElementById("sendMail").style.display = "block";
+}
+
+function createPdf() {
+
+  window.jsPDF = window.jspdf.jsPDF;
+
+  var doc = new jsPDF();
+
+  doc.addImage("https://healthygumz.github.io/quiz/images/client_pdf/Logo_HG.png", "PNG", 80, 7, 42, 21);
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(20);
+  doc.text("GUM DISEASE RISK TEST RESULT", 105, 40, null, null, "center");
+
+  doc.setFontSize(16);
+  doc.text(document.getElementById("inputName").value, 105, 49, null, null, "center");
+
+  doc.setFillColor(6, 81, 185);
+  doc.rect(20, 53, 85, 55, "F");
+
+  doc.setFillColor(0, 149, 255);
+  doc.rect(105, 53, 85, 55, "F");
+
+  var textLines = doc
+    .setFont("helvetica")
+    .setFontSize(13)
+    .setTextColor('#FFFFFF')
+    .splitTextToSize("Your risk assessment result was calculated based on your responses to the following questions:", 65);
+
+  doc.text(textLines, 30, 73);
+
+  doc.addImage(pdfImagePath, "PNG", 116, 58, 62, 46);
+
+
+  doc.autoTable({
+    startY: 110,
+    body: bodyQuestions,
+    margin: Margin = 20,
+    theme: 'striped',
+    columnStyles: { 0: { cellWidth: 85 }, 1: { halign: 'right', cellWidth: 85 } },
+
+  })
+
+  doc.setLineWidth(0.1);
+  doc.line(105, 110, 105, pdfLineHeight);
+
+  var textBottom = doc
+    .setFont("helvetica", 'bold')
+    .setFontSize(18)
+    .setTextColor('#000000')
+    .splitTextToSize("HealthyGumz");
+
+  doc.text(textBottom, 105, 285, null, null, "center");
+
+  doc.addImage("https://healthygumz.github.io/quiz/images/client_pdf/internet_icon.png", "PNG", 127, 280, 5, 5);
+
+  doc.link(127, 280, 5, 5, {
+    url: "https://healthygumz.webflow.io/"
+  });
+
+
+  pdfBase64 = doc.output('datauristring');
+   doc.save("Test.pdf");
 }
