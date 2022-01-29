@@ -53,6 +53,7 @@ function init() {
 
 }
 
+
 function checkBoxClick() {
 
   circles = document.querySelectorAll('div[name="' + this.name + '"]');
@@ -106,6 +107,7 @@ function tryAgain() {
     x[i].style.display = "none";
   }
 
+  document.getElementById("sendByMainBtn").disabled = false; 
 
   var radios = document.querySelectorAll('[id^="radiobutton"]')
   for (var i = 0; i < radios.length; i++) {
@@ -121,6 +123,7 @@ function tryAgain() {
 
   document.getElementById("inputName").value = "";
   document.getElementById("inputMail").value = "";
+  document.getElementById("inpuZipCode").value = "";
 
   currentTab = 0;
 
@@ -374,6 +377,7 @@ function validateMail() {
 
   var name = document.getElementById("inputName");
   var mail = document.getElementById("inputMail");
+  var zipCode = document.getElementById("inpuZipCode");
 
   if (name.value == "") {
     isValidate = false;
@@ -381,7 +385,6 @@ function validateMail() {
     name.classList.add("error-circle-mail");
   }
   else {
-    isValidate = true;
     name.classList.remove("error-circle-mail");
     name.classList.add("circle-mail");
   }
@@ -392,14 +395,29 @@ function validateMail() {
     mail.classList.add("error-circle-mail");
   }
   else {
-    isValidate = true;
     mail.classList.remove("error-circle-mail");
     mail.classList.add("circle-mail");
+  }
+
+  if (zipCode.value == "") {
+    isValidate = false;
+    zipCode.classList.remove("circle-mail");
+    zipCode.classList.add("error-circle-mail");
+  }
+  else {
+    zipCode.classList.remove("error-circle-mail");
+    zipCode.classList.add("circle-mail");
   }
 
   return isValidate;
 
 }
+
+function ClearErrorStyle(event){
+  event.target.classList.remove("error-circle-mail");
+  event.target.classList.add("circle-mail");
+}
+
 
 
 function sendMail() {
@@ -407,13 +425,14 @@ function sendMail() {
 
   if (!validateMail()) return;
 
+  document.getElementById("sendByMainBtn").disabled = true; 
+  
   createPdf();
 
   emailjs.init("user_8Cr1IxiKSaA9gSvYkmq9Q");
 
   var name = document.getElementById("inputName").value;
   var mail = document.getElementById("inputMail").value;
-  var zipCode = document.getElementById("inpuZipCode").value;
 
   if (testResult == 5) {
     templateId = "template_3pmn0jm";
