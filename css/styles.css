@@ -244,10 +244,11 @@ margin: auto;
 .list-radios label {
   display: block;
   position: relative;
-  padding: 10px 10px 8px 33px;; 
+  padding: 1px 10px 8px 33px;
+  /* padding: 10px 10px 8px 33px; */
   text-align: left;
   font: normal normal 400 24px/6px Overpass;
-  /* letter-spacing: 0px; */
+  line-height: 1;
   color: #082B65;
   opacity: 1;
 }
@@ -297,7 +298,7 @@ margin: auto;
   width: 100%;
   position: relative;
   justify-content: center;
-  padding: 0 20px;
+  padding: 0 50px;
 }
 
 .canvas-result{
@@ -418,10 +419,10 @@ width: 50%;
   -webkit-appearance: none;
   -moz-appearance: none;
   text-transform: uppercase;
-  font: normal normal normal 14px/10px Overpass;
+  font: normal normal normal 14px/16px Overpass;
   color: white;
   border: 1px solid #0095FF;
-  padding: 15px 20px;
+  padding: 5px 20px;
   background: #0095FF 0% 0% no-repeat;
   border-radius: 17px;
   margin: 0 0px 0 15px;
@@ -522,7 +523,7 @@ width: 50%;
 
 
 .content{
-  margin: 70px 0px;
+  margin: 70px 0px 70px 0px;
   text-align:center;
  width: 100%;
 }
@@ -540,7 +541,7 @@ span{
 .sendMailBlock{
   /* padding: 0 50px; */
   margin: 0 auto;
-  /* margin-bottom: 20px; */
+  margin-bottom: 20px;
   width: 84%;;
   border: 1px solid black;
   border-radius: 25px;
@@ -556,12 +557,12 @@ span{
 
 .rows .vertical{
   display: flex;
-  /* margin:  0 50px; */
+  line-height: 1;
   margin:  0 30px;
 }
-.rows p{
+/* .rows p{
   margin: auto;
-}
+} */
 
  .callbtn {
   margin-right: 30px;
@@ -577,13 +578,22 @@ span{
 .required-field-before::before {
   content: "*";
   color: red;
-  margin: auto;
+  /* margin: auto; */
 }
+
+.rows .field {
+  width: 35%;
+  padding-bottom:  15px;
+  /* justify-content:left; 
+  float: left;
+  text-align: left; */
+}
+
 
 
 .sendMailBlock .inputBlock{
  width: 50%;
-  padding: 0px 0px  15px 20px;
+  padding: 0px 20px  15px 20px;
   font: normal normal 400 16px/22px Overpass;
 }
 
@@ -620,6 +630,8 @@ span{
 #sendByMainBtn{
   width: 100%;
   font-size: 14px;
+  /* line-height: 1; */
+  /* font: normal normal normal 14px/16px Overpass; */
   cursor: pointer;
 }
 
@@ -648,7 +660,7 @@ input[type="text"], input[type="email"] {
 
 
 /* @media (max-width: 767px){ */
-  @media (max-width: 768px){
+  @media (max-width: 960px){
   .shell {
     max-width: 1200px;
     width: calc(100% - 10px);
@@ -753,7 +765,10 @@ padding: 15px 0px 25px 0px;
   width: 100%;
   position: relative;
   justify-content: center;
+  padding: 0 20px;
 }
+
+
 
 .canvas-result{
   width: 100%;
@@ -808,15 +823,16 @@ span{
  .sendMailBlock .rows{
   display:block;
   margin-top: 20px;
+  /* padding: 20px 20px 20px 20px; */
  }
 
  .sendMailBlock .inputBlock{
   width: 100%;
-   padding: 0px 0px 20px 40px;
+   padding: 0px 40px 20px 40px;
  }
 
  input[type="text"], input[type="email"] {
-  width: 86%;
+  width: 100%;
   border-radius:40px;
   outline: none;
   padding: 5px 5px;
@@ -825,7 +841,12 @@ span{
 .rows .vertical{
   display: flex;
   margin:  0px 20px 20px 40px;
-  width: 35%;
+  /* width: 35%; */
+}
+
+.rows .field {
+  width: 100%;
+  padding-bottom:  0px;
 }
 
 .callbtn {
