@@ -1,6 +1,6 @@
 var currentTab = 0;
 let arrStepHeaders = ['About Me', 'Lifestyle', 'Dental Health', 'Warning Signs I', 'Warning Signs II', 'Health History'];
-var width = 0;
+var widthDoc = 0;
 var testResult = 0;
 let arrPdfQuestions = ['ARE YOU 40 YEARS OF AGE OR OLDER?', 'ARE YOU PREGNANT?', 'DOES GUM DISEASE RUN IN YOUR FAMILY?', 'HOW OFTEN DO YOU BRUSH?', 'HOW OFTEN DO YOU FLOSS?',
   'DO YOU SMOKE, VAPE, OR USE ANY TYPE OF TOBACCO PRODUCTS?', 'HOW OFTEN DO YOU SEE YOUR DENTIST FOR CHECKUPS?', 'DO YOUR GUMS BLEED WHEN YOU BRUSH OR FLOSS?',
@@ -15,14 +15,44 @@ var pdfImagePath='';
 
 function init() {
 
-  width = document.body.clientWidth;
+  widthDoc = document.body.clientWidth;
 
-  if (width > 767) {
-    $('#curved').elipText({ radius: 265 });
+  var elipTextRadius=widthDoc/5.75;
+
+  if (elipTextRadius>265) elipTextRadius=265;
+
+  console.log(elipTextRadius);
+
+  var curved = document.getElementById('curved');
+  var contentText = document.getElementById('contentText');
+
+  if (elipTextRadius > 230 && elipTextRadius<265 ) {
+    contentText.style.marginBottom  = "-20px";
+   curved.innerHTML="LOW RISK &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;MODERATE RISK &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;HIGH RISK";
+}
+  else if (elipTextRadius > 210 && elipTextRadius<=230 ) {
+       contentText.style.marginBottom  = "-35px";
+      curved.innerHTML="LOW RISK  &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;MODERATE RISK  &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;HIGH RISK";
   }
-  else {
-    $('#curved').elipText({ radius: 160 });
+  else if (elipTextRadius > 190 && elipTextRadius<=210 ) {
+    contentText.style.marginBottom  = "-50px";
+   curved.innerHTML="LOW RISK &nbsp; &nbsp;&nbsp; &nbsp;MODERATE RISK  &nbsp; &nbsp; &nbsp;HIGH RISK";
   }
+  else if (elipTextRadius > 164 && elipTextRadius<=190 ) {
+    contentText.style.marginBottom  = "-70px";
+   curved.innerHTML="LOW RISK &nbsp; &nbsp;MODERATE RISK   &nbsp;HIGH RISK";
+  }
+
+  if (elipTextRadius<=164) elipTextRadius=164;
+
+  $('#curved').elipText({ radius: elipTextRadius });
+
+  // if (widthDoc > 1024) {
+  //   $('#curved').elipText({ radius: 265 });
+  // }
+  // else {
+  //   $('#curved').elipText({ radius: 160 });
+  // }
 
   var radios = document.querySelectorAll('[id^="radiobutton"]')
   radios.forEach(element => {
@@ -40,9 +70,7 @@ function init() {
     $('.disclaimer-text-finish').slideToggle(500);
   });
 
-  window.onresize = function () {
-  }
-
+  window.onresize = ResizeMainWindow;
 
   var x = document.getElementsByClassName("form-step");
 
@@ -51,6 +79,21 @@ function init() {
   }
 
 
+}
+
+
+function ResizeMainWindow(){
+
+  // widthDoc = document.body.clientWidth;
+  // initQauge(testResult);
+  // var res= document.getElementById("step-result");
+  // console.log(res.clientWidth);
+
+  // var elipTextRadius=widthDoc/5;
+
+  // if (elipTextRadius>265) elipTextRadius=265;
+
+  // $('#curved').elipText({ radius: elipTextRadius });
 }
 
 
@@ -66,7 +109,7 @@ function checkBoxClick() {
 
 
 function showTab(n) {
-  // n = 5;
+  // n =5;
   // currentTab = 5;
 
   var x = document.getElementsByClassName("form-step");
@@ -232,7 +275,7 @@ function checkResult() {
   resultStep.style.display = "block";
 
 
-  if (width > 767) {
+  if (widthDoc > 940) {
     document.getElementById("stepActionsResult").style.display = "flex";
   }
   else {
@@ -272,11 +315,21 @@ function checkResult() {
 
 
 function initQauge(result) {
+  var _radiusScale=widthDoc /1700;
+  var _lineWidth=widthDoc /3400;
+
+    if (widthDoc<=944) _radiusScale=1;
+   if ( widthDoc<=944) _lineWidth=0.42;
+
+  //  if (_radiusScale>1 || widthDoc<=944) _radiusScale=1;
+  // if ((_lineWidth>0.42 || widthDoc>944) || _lineWidth<0.42 && widthDoc<=944) _lineWidth=0.42;
+
   demoGauge = new Gauge(document.getElementById("step-result"));
+
   var opts = {
     angle: 0.098,
-    lineWidth: 0.42,
-    radiusScale: 1,
+    lineWidth: _lineWidth,
+    radiusScale: _radiusScale,
     pointer: {
       length: 0.6,
       strokeWidth: 0.05,
@@ -296,6 +349,31 @@ function initQauge(result) {
   demoGauge.minValue = 0;
   demoGauge.maxValue = 30;
   demoGauge.set(result);
+  
+  // demoGauge = new Gauge(document.getElementById("step-result"));
+  // var opts = {
+  //   angle: 0.098,
+  //   lineWidth: 0.42,
+  //   radiusScale: 1,
+  //   pointer: {
+  //     length: 0.6,
+  //     strokeWidth: 0.05,
+  //     color: '#000000'
+  //   },
+
+  //   staticZones: [
+  //     { strokeStyle: "#FFDD00", min: 0, max: 10 },
+  //     { strokeStyle: "#F99D0C", min: 10, max: 20 },
+  //     { strokeStyle: "#F35C19", min: 20, max: 30 }
+  //   ],
+  //   limitMax: false,
+  //   limitMin: false,
+  //   highDpiSupport: true
+  // };
+  // demoGauge.setOptions(opts);
+  // demoGauge.minValue = 0;
+  // demoGauge.maxValue = 30;
+  // demoGauge.set(result);
 };
 
 
@@ -459,15 +537,19 @@ function sendMail() {
     }
   };
 
+  document.getElementById("sendMailSuccess").style.display = "block";
+  document.getElementById("sendMail").style.display = "none";
+
   $.ajax('https://api.emailjs.com/api/v1.0/email/send', {
     type: 'POST',
     data: JSON.stringify(data),
     contentType: 'application/json'
   }).done(function () {
-    document.getElementById("sendMailSuccess").style.display = "block";
-    document.getElementById("sendMail").style.display = "none";
+    // document.getElementById("sendMailSuccess").style.display = "block";
+    // document.getElementById("sendMail").style.display = "none";
   }).fail(function (error) {
     document.getElementById("sendMailUnsuccess").style.display = "block";
+    document.getElementById("sendMailSuccess").style.display="none";
     document.getElementById("sendMail").style.display = "none";
   });
 
@@ -538,5 +620,5 @@ function createPdf() {
 
 
   pdfBase64 = doc.output('datauristring');
-  //  doc.save("Test.pdf");
+  // doc.save("Test.pdf");
 }
