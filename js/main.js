@@ -501,6 +501,8 @@ function ClearErrorStyle(event){
 function sendMail() {
   var templateId = 0;
 
+  // createPdf();
+
   if (!validateMail()) return;
 
   document.getElementById("sendByMainBtn").disabled = true; 
@@ -514,14 +516,12 @@ function sendMail() {
 
   if (testResult == 5) {
     templateId = "template_3pmn0jm";
-    // templateId = "template_1fdd21q";
-    
   }
   else if (testResult == 15) {
-    templateId = "template_y9ik5dc";
+    templateId = "template_p48pjfj";
   }
   else if (testResult == 25) {
-    templateId = "template_3xzeugn";
+    templateId = "template_j7xp7xq";
   };
 
   var data = {
@@ -572,8 +572,13 @@ function createPdf() {
   doc.setFontSize(20);
   doc.text("GUM DISEASE RISK TEST RESULT", 105, 40, null, null, "center");
 
-  doc.setFontSize(16);
-  doc.text(document.getElementById("inputName").value, 105, 49, null, null, "center");
+  doc.setFontSize(20);
+
+  var inputName=document.getElementById("inputName").value;
+
+  inputName=inputName.replace(/(^|\s)\S/g, function(a) {return a.toUpperCase()});
+  
+  doc.text(inputName, 105, 49, null, null, "center");
 
   doc.setFillColor(6, 81, 185);
   doc.rect(20, 53, 85, 55, "F");
@@ -614,11 +619,11 @@ function createPdf() {
 
   doc.addImage("https://healthygumz.github.io/quiz/images/client_pdf/internet_icon.png", "PNG", 127, 280, 5, 5);
 
-  doc.link(127, 280, 5, 5, {
-    url: "https://healthygumz.webflow.io/"
+  doc.link(85, 280, 48, 4, {
+    url: "https://www.healthygumz.com/"
   });
 
 
   pdfBase64 = doc.output('datauristring');
-  // doc.save("Test.pdf");
+  //  doc.save("Test.pdf");
 }
