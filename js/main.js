@@ -109,8 +109,8 @@ function checkBoxClick() {
 
 
 function showTab(n) {
-  // n =5;
-  // currentTab = 5;
+  n =5;
+  currentTab = 5;
 
   var x = document.getElementsByClassName("form-step");
   $("#form_step-" + parseInt(n + 1)).fadeIn(800);
@@ -513,6 +513,7 @@ function sendMail() {
 
   var name = document.getElementById("inputName").value;
   var mail = document.getElementById("inputMail").value;
+  var zipCode = document.getElementById("inpuZipCode");
 
   if (testResult == 5) {
     templateId = "template_3pmn0jm";
@@ -523,6 +524,11 @@ function sendMail() {
   else if (testResult == 25) {
     templateId = "template_j7xp7xq";
   };
+
+  if (document.getElementById("dontSendPersonalData").checked){
+    alert("fdsfsdf")
+  }
+
 
   var data = {
     service_id: 'service_wrag93q',
