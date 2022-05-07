@@ -289,7 +289,7 @@ margin: auto;
 }
 
 .step-content-result{
-  background: #fff;
+  background: #fbfbfb;
   /* padding: 30px 0px; */
   width:50%; 
 }
@@ -539,20 +539,18 @@ span{
 
 
 .sendMailBlock{
-  /* padding: 0 50px; */
+  background: #fff;
   margin: 0 auto;
   margin-bottom: 20px;
   width: 84%;;
   border: 1px solid black;
   border-radius: 25px;
-  padding-bottom: 20px;
+  padding: 25px 0px;
 }
 
 .sendMailBlock .rows{
   display: flex;
-  margin-top: 15px;
-  /* justify-content: center; */
-  /* text-align:center; */
+  /* margin-top: 15px; */
 }
 
 .rows .vertical{
@@ -565,9 +563,9 @@ span{
 } */
 
  .callbtn {
-  margin-right: 30px;
+  margin-right: 50px;
   margin-left: auto;
-  max-width: 100%;
+  max-width: 50%;
 }
 
 .required-field::after {
@@ -589,12 +587,35 @@ span{
   text-align: left; */
 }
 
-
+.checkbox{
+    width: 70%;
+    display: block;
+    /* margin-bottom: 5px; */
+    padding :13px 0px 0px 0px;
+    /* padding-left: 5px; */
+}
 
 .sendMailBlock .inputBlock{
- width: 50%;
-  padding: 0px 20px  15px 20px;
+ width: 100%;
+  padding: 10px 15px  10px 45px;
   font: normal normal 400 16px/22px Overpass;
+}
+
+
+.sendMailBlock .checkbox{
+  width: 100%;
+  margin: -20px 0px 25px 35px;
+  /* padding: 0px 0px 25px 35px; */
+   /* font: normal normal 400 16px/22px Overpass; */
+ }
+
+ .checkbox label {
+  width: 100%;
+  /* display: block; */
+  margin: -19px 0px 15px 15px;
+  /* padding :0x 0px 10px 15px; */
+ 
+
 }
 
 .sendMailSuccess{
@@ -636,15 +657,19 @@ span{
 }
 
 label {
+  width: 20%;
   display: block;
-  margin-bottom: 5px;
-  padding-left: 5px;
+  /* margin-bottom: 5px; */
+  padding :13px 0px 0px 0px;
+  /* padding-left: 5px; */
 }
+
 input[type="text"], input[type="email"] {
   border-radius:40px;
-  max-width: 100%;
-  padding: 5px 15px;
-  outline: none;
+  /* max-width: 100%; */
+  width: 80%;
+  padding: 10px 15px;
+  /* outline: none; */
 }
 
 .circle-mail {
@@ -823,13 +848,27 @@ span{
  .sendMailBlock .rows{
   display:block;
   margin-top: 20px;
-  /* padding: 20px 20px 20px 20px; */
  }
 
  .sendMailBlock .inputBlock{
   width: 100%;
-   padding: 0px 40px 20px 40px;
+  padding: 0px 15px 20px 40px;
  }
+
+ .sendMailBlock .checkbox{
+  margin: -30px 0px 25px 25px;
+
+ }
+
+ .checkbox label {
+  margin: -25px 0px 15px 20px;
+}
+
+ label {
+  width: 50%;
+  padding :0;
+  padding-left: 5px;
+}
 
  input[type="text"], input[type="email"] {
   width: 100%;
