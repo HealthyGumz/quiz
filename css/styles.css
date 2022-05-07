@@ -604,19 +604,13 @@ span{
 
 .sendMailBlock .checkbox{
   width: 100%;
-  margin: -20px 0px 25px 35px;
-  /* padding: 0px 0px 25px 35px; */
-   /* font: normal normal 400 16px/22px Overpass; */
+  margin: -20px 0px 25px 47px;
  }
 
  .checkbox label {
   width: 100%;
-  /* display: block; */
-  margin: -19px 0px 15px 15px;
-  /* padding :0x 0px 10px 15px; */
- 
-
-}
+  margin: -6px 0px 15px 5px;
+ }
 
 .sendMailSuccess{
   display: block;
@@ -656,12 +650,16 @@ span{
   cursor: pointer;
 }
 
-label {
+.inputBlock label {
   width: 20%;
   display: block;
-  /* margin-bottom: 5px; */
   padding :13px 0px 0px 0px;
-  /* padding-left: 5px; */
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  padding-left: 5px;
 }
 
 input[type="text"], input[type="email"] {
