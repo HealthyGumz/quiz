@@ -550,17 +550,13 @@ span{
 
 .sendMailBlock .rows{
   display: flex;
-  /* margin-top: 15px; */
 }
 
 .rows .vertical{
   display: flex;
   line-height: 1;
-  margin:  0 30px;
 }
-/* .rows p{
-  margin: auto;
-} */
+
 
  .callbtn {
   margin-right: 50px;
@@ -579,37 +575,29 @@ span{
   /* margin: auto; */
 }
 
-.rows .field {
-  width: 35%;
-  padding-bottom:  15px;
-  /* justify-content:left; 
-  float: left;
-  text-align: left; */
-}
 
 .checkbox{
     width: 70%;
     display: block;
-    /* margin-bottom: 5px; */
     padding :13px 0px 0px 0px;
-    /* padding-left: 5px; */
 }
 
 .sendMailBlock .inputBlock{
  width: 100%;
-  padding: 10px 15px  10px 45px;
+  padding: 10px 35px  10px 35px;
   font: normal normal 400 16px/22px Overpass;
 }
 
 
 .sendMailBlock .checkbox{
   width: 100%;
-  margin: -20px 0px 25px 47px;
+  margin: -20px 0px 25px 39px;
  }
 
  .checkbox label {
   width: 100%;
-  margin: -6px 0px 15px 5px;
+  margin: -3px 0px 15px 5px;
+  font: normal normal 400 16px/22px Overpass;
  }
 
 .sendMailSuccess{
@@ -645,8 +633,6 @@ span{
 #sendByMainBtn{
   width: 100%;
   font-size: 14px;
-  /* line-height: 1; */
-  /* font: normal normal normal 14px/16px Overpass; */
   cursor: pointer;
 }
 
@@ -664,10 +650,8 @@ label {
 
 input[type="text"], input[type="email"] {
   border-radius:40px;
-  /* max-width: 100%; */
   width: 80%;
   padding: 10px 15px;
-  /* outline: none; */
 }
 
 .circle-mail {
@@ -691,7 +675,6 @@ input[type="text"], input[type="email"] {
   }
   
   .title-bar {
-    /* margin: 50px 30px 30px 30px; */
     text-align: center;
   } 
   
@@ -714,7 +697,6 @@ input[type="text"], input[type="email"] {
  }
   
 .disclaimer-text-finish{
-  /* margin: 0; */
   padding: 20px 0 0 0;
 }
 
@@ -845,12 +827,12 @@ span{
 
  .sendMailBlock .rows{
   display:block;
-  margin-top: 20px;
+  /* margin-top: 20px; */
  }
 
  .sendMailBlock .inputBlock{
   width: 100%;
-  padding: 0px 15px 20px 40px;
+  padding: 0px 20px 20px 20px;
  }
 
  .sendMailBlock .checkbox{
@@ -859,7 +841,13 @@ span{
  }
 
  .checkbox label {
-  margin: -25px 0px 15px 20px;
+  margin:-22px 0px 15px 15px;
+}
+
+.inputBlock label {
+  width: 100%;
+  display: block;
+  padding :0px;
 }
 
  label {
@@ -875,16 +863,6 @@ span{
   padding: 5px 5px;
 }
 
-.rows .vertical{
-  display: flex;
-  margin:  0px 20px 20px 40px;
-  /* width: 35%; */
-}
-
-.rows .field {
-  width: 100%;
-  padding-bottom:  0px;
-}
 
 .callbtn {
  
