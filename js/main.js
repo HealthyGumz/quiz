@@ -253,7 +253,7 @@ function checkResult() {
   };
 
   element = document.createElement("script");
-  element.src = "js/webflow.js";
+  element.src = "js/gaugewebflow.js";
   document.body.appendChild(element);
 
 
