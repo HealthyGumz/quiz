@@ -17,43 +17,6 @@ function init() {
 
   widthDoc = document.body.clientWidth;
 
-  var elipTextRadius=widthDoc/5.75;
-
-  if (elipTextRadius>265) elipTextRadius=265;
-
-  console.log(elipTextRadius);
-
-  var curved = document.getElementById('curved');
-  var contentText = document.getElementById('contentText');
-
-  if (elipTextRadius > 230 && elipTextRadius<265 ) {
-    contentText.style.marginBottom  = "-20px";
-   curved.innerHTML="LOW RISK &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;MODERATE RISK &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;HIGH RISK";
-}
-  else if (elipTextRadius > 210 && elipTextRadius<=230 ) {
-       contentText.style.marginBottom  = "-35px";
-      curved.innerHTML="LOW RISK  &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;MODERATE RISK  &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;HIGH RISK";
-  }
-  else if (elipTextRadius > 190 && elipTextRadius<=210 ) {
-    contentText.style.marginBottom  = "-50px";
-   curved.innerHTML="LOW RISK &nbsp; &nbsp;&nbsp; &nbsp;MODERATE RISK  &nbsp; &nbsp; &nbsp;HIGH RISK";
-  }
-  else if (elipTextRadius > 164 && elipTextRadius<=190 ) {
-    contentText.style.marginBottom  = "-70px";
-   curved.innerHTML="LOW RISK &nbsp; &nbsp;MODERATE RISK   &nbsp;HIGH RISK";
-  }
-
-  if (elipTextRadius<=164) elipTextRadius=164;
-
-  $('#curved').elipText({ radius: elipTextRadius });
-
-  // if (widthDoc > 1024) {
-  //   $('#curved').elipText({ radius: 265 });
-  // }
-  // else {
-  //   $('#curved').elipText({ radius: 160 });
-  // }
-
   var radios = document.querySelectorAll('[id^="radiobutton"]')
   radios.forEach(element => {
     element.addEventListener("click", checkBoxClick, false);
@@ -70,30 +33,11 @@ function init() {
     $('.disclaimer-text-finish').slideToggle(500);
   });
 
-  window.onresize = ResizeMainWindow;
-
   var x = document.getElementsByClassName("form-step");
 
   for (i = 0; i < x.length; i++) {
     x[i].style.display = "none";
   }
-
-
-}
-
-
-function ResizeMainWindow(){
-
-  // widthDoc = document.body.clientWidth;
-  // initQauge(testResult);
-  // var res= document.getElementById("step-result");
-  // console.log(res.clientWidth);
-
-  // var elipTextRadius=widthDoc/5;
-
-  // if (elipTextRadius>265) elipTextRadius=265;
-
-  // $('#curved').elipText({ radius: elipTextRadius });
 }
 
 
@@ -104,13 +48,12 @@ function checkBoxClick() {
     element.classList.add("radio-circle");
     element.classList.remove("error-circle");
   });
-
 }
 
 
 function showTab(n) {
-  // n =5;
-  // currentTab = 5;
+  n =5;
+  currentTab = 5;
 
   var x = document.getElementsByClassName("form-step");
   $("#form_step-" + parseInt(n + 1)).fadeIn(800);
@@ -261,7 +204,6 @@ function checkResult() {
     }
   }
 
-
   document.getElementById("mainCaption").innerHTML = 'YOUR RESULT';
 
   var i, x = document.getElementsByClassName("form-step");
@@ -293,91 +235,32 @@ function checkResult() {
 
   if (result <= 3) {
     result = 5;
-    resultlDescription = 'Great News! Your score suggests that you may be at low risk of having gum disease. By maintaining a low score, you can reduce the likelihood of developing other  related medical conditions. To learn more, click on one of the buttons below:';
+    resultlDescription = 'Great News! Your score suggests that you may be at low risk of having gum disease. By maintaining a low score, you can reduce the likelihood of developing other  related medical conditions.';
     pdfImagePath="https://healthygumz.github.io/quiz/images/client_pdf/low_risk.png";
+    document.getElementById("gauge").setAttribute('data-src', 'documents/LowRisk.json');
   }
   else if (result > 3 && result <= 8) {
     result = 15;
-    resultlDescription = 'Your score suggests that you may be at moderate risk of having gum disease. Patients with gum disease are more likely to develop related chronic medical conditions. Your score indicates the chance that your gum health will get worse without professional care. To take the first step towards having better oral and overall health, click on the links below:';
+    resultlDescription = 'Your score suggests that you may be at moderate risk of having gum disease. Patients with gum disease are more likely to develop related chronic medical conditions. Your score indicates the chance that your gum health will get worse without professional care.';
     pdfImagePath="https://healthygumz.github.io/quiz/images/client_pdf/moderate_risk.png"
+    document.getElementById("gauge").setAttribute('data-src', 'documents/ModerateRisk.json');
   }
   else {
     result = 25;
-    resultlDescription = 'Your score suggests that you may be at high risk of having gum disease. Patients with gum disease are more likely to develop related chronic medical conditions.  Your score implies that your gum health will get worse without professional care. To take action towards having better oral and overall health, click on the links below:';
+    resultlDescription = 'Your score suggests that you may be at high risk of having gum disease. Patients with gum disease are more likely to develop related chronic medical conditions.  Your score implies that your gum health will get worse without professional care.';
     pdfImagePath="https://healthygumz.github.io/quiz/images/client_pdf/high_risk.png";
+    document.getElementById("gauge").setAttribute('data-src', 'documents/HighRisk.json');
   };
 
-  initQauge(result);
+  element = document.createElement("script");
+  element.src = "js/webflow.js";
+  document.body.appendChild(element);
+
 
   testResult = result;
   document.getElementById("textResult").innerHTML = resultlDescription;
+  window.scrollTo( 0, 0 );
 }
-
-
-function initQauge(result) {
-  var _radiusScale=widthDoc /1700;
-  var _lineWidth=widthDoc /3400;
-
-    if (widthDoc<=944) _radiusScale=1;
-   if ( widthDoc<=944) _lineWidth=0.42;
-
-  //  if (_radiusScale>1 || widthDoc<=944) _radiusScale=1;
-  // if ((_lineWidth>0.42 || widthDoc>944) || _lineWidth<0.42 && widthDoc<=944) _lineWidth=0.42;
-
-  demoGauge = new Gauge(document.getElementById("step-result"));
-
-  var opts = {
-    angle: 0.098,
-    lineWidth: _lineWidth,
-    radiusScale: _radiusScale,
-    pointer: {
-      length: 0.6,
-      strokeWidth: 0.05,
-      color: '#000000'
-    },
-
-    staticZones: [
-      { strokeStyle: "#FFDD00", min: 0, max: 10 },
-      { strokeStyle: "#F99D0C", min: 10, max: 20 },
-      { strokeStyle: "#F35C19", min: 20, max: 30 }
-    ],
-    limitMax: false,
-    limitMin: false,
-    highDpiSupport: true
-  };
-  demoGauge.setOptions(opts);
-  demoGauge.minValue = 0;
-  demoGauge.maxValue = 30;
-  demoGauge.set(result);
-  
-  // demoGauge = new Gauge(document.getElementById("step-result"));
-  // var opts = {
-  //   angle: 0.098,
-  //   lineWidth: 0.42,
-  //   radiusScale: 1,
-  //   pointer: {
-  //     length: 0.6,
-  //     strokeWidth: 0.05,
-  //     color: '#000000'
-  //   },
-
-  //   staticZones: [
-  //     { strokeStyle: "#FFDD00", min: 0, max: 10 },
-  //     { strokeStyle: "#F99D0C", min: 10, max: 20 },
-  //     { strokeStyle: "#F35C19", min: 20, max: 30 }
-  //   ],
-  //   limitMax: false,
-  //   limitMin: false,
-  //   highDpiSupport: true
-  // };
-  // demoGauge.setOptions(opts);
-  // demoGauge.minValue = 0;
-  // demoGauge.maxValue = 30;
-  // demoGauge.set(result);
-};
-
-
-
 
 
 
