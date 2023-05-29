@@ -237,19 +237,19 @@ function checkResult() {
     result = 5;
     resultlDescription = 'Great News! Your score suggests that you may be at low risk of having gum disease. By maintaining a low score, you can reduce the likelihood of developing other  related medical conditions.';
     pdfImagePath="https://healthygumz.github.io/quiz/images/client_pdf/low_risk.png";
-    document.getElementById("gauge").setAttribute('data-src', 'documents/LowRisk.json');
+    document.getElementById("gauge").setAttribute('data-src', 'https://healthygumz.github.io/quiz/documents/LowRisk.json');
   }
   else if (result > 3 && result <= 8) {
     result = 15;
     resultlDescription = 'Your score suggests that you may be at moderate risk of having gum disease. Patients with gum disease are more likely to develop related chronic medical conditions. Your score indicates the chance that your gum health will get worse without professional care.';
     pdfImagePath="https://healthygumz.github.io/quiz/images/client_pdf/moderate_risk.png"
-    document.getElementById("gauge").setAttribute('data-src', 'documents/ModerateRisk.json');
+    document.getElementById("gauge").setAttribute('data-src', 'https://healthygumz.github.io/quiz/documents/ModerateRisk.json');
   }
   else {
     result = 25;
     resultlDescription = 'Your score suggests that you may be at high risk of having gum disease. Patients with gum disease are more likely to develop related chronic medical conditions.  Your score implies that your gum health will get worse without professional care.';
     pdfImagePath="https://healthygumz.github.io/quiz/images/client_pdf/high_risk.png";
-    document.getElementById("gauge").setAttribute('data-src', 'documents/HighRisk.json');
+    document.getElementById("gauge").setAttribute('data-src', 'https://healthygumz.github.io/quiz/documents/HighRisk.json');
   };
 
   element = document.createElement("script");
