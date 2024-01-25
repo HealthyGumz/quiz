@@ -1,3 +1,4 @@
+
 var currentTab = 0;
 let arrStepHeaders = ['About Me', 'Lifestyle', 'Dental Health', 'Warning Signs I', 'Warning Signs II', 'Health History'];
 var widthDoc = 0;
@@ -10,8 +11,9 @@ let arrPdfQuestions = ['ARE YOU 40 YEARS OF AGE OR OLDER?', 'ARE YOU PREGNANT?',
 var bodyQuestions = [];
 
 var pdfBase64 = '';
-var pdfLineHeight=270;
-var pdfImagePath='';
+var pdfLineHeight = 270;
+var pdfImagePath = '';
+
 
 function init() {
 
@@ -35,7 +37,7 @@ function init() {
 
   var x = document.getElementsByClassName("form-step");
 
-  for (i = 0; i < x.length; i++) {
+  for (var i = 0; i < x.length; i++) {
     x[i].style.display = "none";
   }
 }
@@ -43,7 +45,7 @@ function init() {
 
 function checkBoxClick() {
 
-  circles = document.querySelectorAll('div[name="' + this.name + '"]');
+  var circles = document.querySelectorAll('div[name="' + this.name + '"]');
   circles.forEach(element => {
     element.classList.add("radio-circle");
     element.classList.remove("error-circle");
@@ -89,11 +91,11 @@ function showTab(n) {
 function tryAgain() {
   var x = document.getElementsByClassName("form-step");
 
-  for (i = 0; i < x.length; i++) {
+  for (var i = 0; i < x.length; i++) {
     x[i].style.display = "none";
   }
 
-  document.getElementById("sendByMainBtn").disabled = false; 
+  document.getElementById("sendByMainBtn").disabled = false;
 
   var radios = document.querySelectorAll('[id^="radiobutton"]')
   for (var i = 0; i < radios.length; i++) {
@@ -110,6 +112,8 @@ function tryAgain() {
   document.getElementById("inputName").value = "";
   document.getElementById("inputMail").value = "";
   document.getElementById("inpuZipCode").value = "";
+
+  $("svg").remove(); // remove previous guage SVG
 
   currentTab = 0;
 
@@ -186,21 +190,21 @@ function checkResult() {
   var radios = document.querySelectorAll('[id^="radiobutton"]')
   var result = 0;
   var resultlDescription = "";
-  var questionIndex=0;
-  var pdfAnswars="";
+  var questionIndex = 0;
+  var pdfAnswars = "";
 
   for (var i = 0; i < radios.length; i++) {
     if (radios[i].checked) {
       result += parseInt(radios[i].value);
 
-      pdfAnswars=$("label[for='" + radios[i].id + "']").text();
+      pdfAnswars = $("label[for='" + radios[i].id + "']").text();
       bodyQuestions.push([arrPdfQuestions[questionIndex], pdfAnswars]);
       questionIndex++;
 
-      if (radios[i].id=="radiobutton31" ){
-        pdfLineHeight=260;
+      if (radios[i].id == "radiobutton31") {
+        pdfLineHeight = 260;
         questionIndex++;
-       }
+      }
     }
   }
 
@@ -208,7 +212,7 @@ function checkResult() {
 
   var i, x = document.getElementsByClassName("form-step");
 
-  for (i = 0; i < x.length; i++) {
+  for (var i = 0; i < x.length; i++) {
     x[i].className = x[i].className.replace(" active", "");
   }
 
@@ -236,31 +240,30 @@ function checkResult() {
   if (result <= 3) {
     result = 5;
     resultlDescription = 'Great News! Your score suggests that you may be at low risk of having gum disease. By maintaining a low score, you can reduce the likelihood of developing other  related medical conditions.';
-    pdfImagePath="https://healthygumz.github.io/quiz/images/client_pdf/low_risk.png";
+    pdfImagePath = "https://healthygumz.github.io/quiz/images/client_pdf/low_risk.png";
     document.getElementById("gauge").setAttribute('data-src', 'https://healthygumz.github.io/quiz/documents/LowRisk.json');
   }
   else if (result > 3 && result <= 8) {
     result = 15;
     resultlDescription = 'Your score suggests that you may be at moderate risk of having gum disease. Patients with gum disease are more likely to develop related chronic medical conditions. Your score indicates the chance that your gum health will get worse without professional care.';
-    pdfImagePath="https://healthygumz.github.io/quiz/images/client_pdf/moderate_risk.png"
+    pdfImagePath = "https://healthygumz.github.io/quiz/images/client_pdf/moderate_risk.png"
     document.getElementById("gauge").setAttribute('data-src', 'https://healthygumz.github.io/quiz/documents/ModerateRisk.json');
   }
   else {
     result = 25;
     resultlDescription = 'Your score suggests that you may be at high risk of having gum disease. Patients with gum disease are more likely to develop related chronic medical conditions.  Your score implies that your gum health will get worse without professional care.';
-    pdfImagePath="https://healthygumz.github.io/quiz/images/client_pdf/high_risk.png";
+    pdfImagePath = "https://healthygumz.github.io/quiz/images/client_pdf/high_risk.png";
     document.getElementById("gauge").setAttribute('data-src', 'https://healthygumz.github.io/quiz/documents/HighRisk.json');
   };
 
   element = document.createElement("script");
-  // element.src = "js/gaugewebflow.js";
   element.src = "https://uploads-ssl.webflow.com/601313a4281bc325b125c398/js/webflow.c0841dd9f.js";
   document.body.appendChild(element);
 
 
   testResult = result;
   document.getElementById("textResult").innerHTML = resultlDescription;
-  window.scrollTo( 0, 0 );
+  window.scrollTo(0, 0);
 }
 
 
@@ -274,7 +277,7 @@ function validateForm(currentTab) {
   var isValidate = true;
   var currentIndex;
   var circles;
-  var isDiabetesCheck = false;
+  var isDiabCheck = false;
 
   if (currentTab == 0) {
     currentIndex = 1;
@@ -287,14 +290,14 @@ function validateForm(currentTab) {
     var diabetesEl = document.getElementById("radiobutton31"); // IsDiabetes cheсked
 
     if (diabetesEl.checked) {
-      isDiabetesCheck = true;
+      isDiabCheck = true;
     }
   }
 
-  for (i = currentIndex; i <= pagaCheckboxArray[currentTab]; i++) {
+  for (var i = currentIndex; i <= pagaCheckboxArray[currentTab]; i++) {
     radioGroupIndex = 'radio-group' + i;
     checkboxes = document.querySelectorAll('input[name="' + radioGroupIndex + '"]:checked');
-    if (i == 15 && isDiabetesCheck) {
+    if (i == 15 && isDiabCheck) {
 
     }
     else {
@@ -318,16 +321,16 @@ function fixStepIndicator(n) {
   var x = document.getElementsByClassName("form-step");
   var nav = document.getElementsByClassName("nav-step")
 
-  for (i = 0; i < x.length; i++) {
+  for (var i = 0; i < x.length; i++) {
     x[i].className = x[i].className.replace(" active", "");
   }
   x[n].className += " active";
 
-  for (i = 0; i < nav.length; i++) {
+  for (var i = 0; i < nav.length; i++) {
     nav[i].className = nav[i].className.replace(" current", "");
   }
 
-  for (i = 0; i <= n; i++) {
+  for (var i = 0; i <= n; i++) {
     nav[i].className = nav[i].className += " current";
   }
 }
@@ -375,7 +378,7 @@ function validateMail() {
 
 }
 
-function ClearErrorStyle(event){
+function ClearErrorStyle(event) {
   event.target.classList.remove("error-circle-mail");
   event.target.classList.add("circle-mail");
 }
@@ -383,21 +386,25 @@ function ClearErrorStyle(event){
 
 
 function sendMail() {
-  var templateId = 0;
 
-  // createPdf();
+  var name = document.getElementById("inputName").value;
+   var mail = document.getElementById("inputMail").value;
+   var zipCode = document.getElementById("inpuZipCode").value;
+  addDataToDB(mail, name,zipCode, bodyQuestions);
+
+ var templateId = 0;
 
   if (!validateMail()) return;
 
-  document.getElementById("sendByMainBtn").disabled = true; 
-  
+  document.getElementById("sendByMainBtn").disabled = true;
+
   createPdf();
 
   emailjs.init("user_8Cr1IxiKSaA9gSvYkmq9Q");
 
   var name = document.getElementById("inputName").value;
   var mail = document.getElementById("inputMail").value;
-  var zipCode = document.getElementById("inpuZipCode");
+  var zipCode = document.getElementById("inpuZipCode").value;
 
   if (testResult == 5) {
     templateId = "template_3pmn0jm";
@@ -409,8 +416,8 @@ function sendMail() {
     templateId = "template_j7xp7xq";
   };
 
-  if (document.getElementById("dontSendPersonalData").checked){
-    alert("fdsfsdf")
+  if (document.getElementById("dontSendPersonalData").checked) {
+
   }
 
 
@@ -439,7 +446,7 @@ function sendMail() {
     // document.getElementById("sendMail").style.display = "none";
   }).fail(function (error) {
     document.getElementById("sendMailUnsuccess").style.display = "block";
-    document.getElementById("sendMailSuccess").style.display="none";
+    document.getElementById("sendMailSuccess").style.display = "none";
     document.getElementById("sendMail").style.display = "none";
   });
 
@@ -464,10 +471,10 @@ function createPdf() {
 
   doc.setFontSize(20);
 
-  var inputName=document.getElementById("inputName").value;
+  var inputName = document.getElementById("inputName").value;
 
-  inputName=inputName.replace(/(^|\s)\S/g, function(a) {return a.toUpperCase()});
-  
+  inputName = inputName.replace(/(^|\s)\S/g, function (a) { return a.toUpperCase() });
+
   doc.text(inputName, 105, 49, null, null, "center");
 
   doc.setFillColor(6, 81, 185);
@@ -515,5 +522,41 @@ function createPdf() {
 
 
   pdfBase64 = doc.output('datauristring');
-  //  doc.save("Test.pdf");
+ //  doc.save("Test.pdf");
 }
+
+//------------ FireBase----------------------
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCNfJbkMiwe0bt-uJIugRDsBK9NUsb79Gg",
+  authDomain: "dbtest-ab425.firebaseapp.com",
+  databaseURL: "https://dbtest-ab425-default-rtdb.firebaseio.com",
+  projectId: "dbtest-ab425",
+  storageBucket: "dbtest-ab425.appspot.com",
+  messagingSenderId: "166629080487",
+  appId: "1:166629080487:web:61b7db5d29a2cb94090a82",
+  measurementId: "G-7FVTTDGWEL",
+  databaseURL: "https://dbtest-ab425-default-rtdb.firebaseio.com"
+};
+
+
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const db = app.database();
+const dbRef = db.ref('Reports');
+const currentDate = new Date().toLocaleDateString();
+
+function addDataToDB(mail, name, zipCode, bodyQuestions) {
+  const autoId = dbRef.push().key;
+  dbRef.child(autoId).set({
+    date:currentDate,
+    userData: { name: name, email: mail, code: zipCode },
+    testReport: bodyQuestions
+  }).then(() => {
+    // alert("Data Added Successfully");
+  }).catch((error) => {
+    // alert("Error Data");
+    console.log(error);
+  })
+}
+
