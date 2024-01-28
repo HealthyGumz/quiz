@@ -15,7 +15,7 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.container {
+.report-container {
   max-width: 70rem;
   margin: 2rem auto;
   padding-bottom: 2rem;
