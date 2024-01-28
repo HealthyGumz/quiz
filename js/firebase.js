@@ -75,7 +75,7 @@ function loginExistingUsers() {
             // Signed in
             var user = userCredential.user;
             var loginContainer = document.querySelector('.login-modal');
-            var mainContainer = document.querySelector('.container');
+            var mainContainer = document.querySelector('.report-container');
             loginContainer.classList.remove('modal-show');
             mainContainer.classList.add('modal-show');
             getDataFromDB()
