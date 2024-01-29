@@ -384,13 +384,12 @@ function ClearErrorStyle(event) {
 }
 
 
-
 function sendMail() {
 
-  var name = document.getElementById("inputName").value;
-   var mail = document.getElementById("inputMail").value;
-   var zipCode = document.getElementById("inpuZipCode").value;
-  addDataToDB(mail, name,zipCode, bodyQuestions);
+  // var name = document.getElementById("inputName").value;
+  //  var mail = document.getElementById("inputMail").value;
+  //  var zipCode = document.getElementById("inpuZipCode").value;
+  // addDataToDB(mail, name,zipCode, bodyQuestions);
 
  var templateId = 0;
 
@@ -405,6 +404,8 @@ function sendMail() {
   var name = document.getElementById("inputName").value;
   var mail = document.getElementById("inputMail").value;
   var zipCode = document.getElementById("inpuZipCode").value;
+
+  addDataToDB(mail, name,zipCode, bodyQuestions);
 
   if (testResult == 5) {
     templateId = "template_3pmn0jm";
@@ -522,29 +523,27 @@ function createPdf() {
 
 
   pdfBase64 = doc.output('datauristring');
- //  doc.save("Test.pdf");
+  // doc.save("Test.pdf");
 }
 
 //------------ FireBase----------------------
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCNfJbkMiwe0bt-uJIugRDsBK9NUsb79Gg",
-  authDomain: "dbtest-ab425.firebaseapp.com",
-  databaseURL: "https://dbtest-ab425-default-rtdb.firebaseio.com",
-  projectId: "dbtest-ab425",
-  storageBucket: "dbtest-ab425.appspot.com",
-  messagingSenderId: "166629080487",
-  appId: "1:166629080487:web:61b7db5d29a2cb94090a82",
-  measurementId: "G-7FVTTDGWEL",
-  databaseURL: "https://dbtest-ab425-default-rtdb.firebaseio.com"
+  apiKey: "AIzaSyCMn7SgkQj5ZHw3MdCwLJr4gCDS7yzbrP8",
+  authDomain: "healthygumzrisktest.firebaseapp.com",
+  projectId: "healthygumzrisktest",
+  storageBucket: "healthygumzrisktest.appspot.com",
+  messagingSenderId: "336290999628",
+  appId: "1:336290999628:web:67bcfa41cadbe6326673e9",
+  measurementId: "G-70BZYJ7SXE",
+  databaseURL: " https://healthygumzrisktest-default-rtdb.firebaseio.com"
 };
-
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const db = app.database();
 const dbRef = db.ref('Reports');
-const currentDate = new Date().toLocaleDateString();
+const currentDate = new Date().toLocaleDateString("en-US");
 
 function addDataToDB(mail, name, zipCode, bodyQuestions) {
   const autoId = dbRef.push().key;
@@ -559,4 +558,7 @@ function addDataToDB(mail, name, zipCode, bodyQuestions) {
     console.log(error);
   })
 }
+
+
+
 
