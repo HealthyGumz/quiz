@@ -17,8 +17,8 @@ body {
 
 .report-container {
   max-width: 70rem;
-  margin: 2rem auto;
-  padding-bottom: 2rem;
+  margin: 9rem auto;
+  padding-bottom: 1rem;
   -webkit-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
   box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
@@ -28,7 +28,7 @@ body {
 header {
   width: 100%;
   background: var(--primary-color);
-  padding: 1rem;
+  padding: 1.5rem;
 }
 
 header h3 {
@@ -91,9 +91,9 @@ header h3 {
 
 .btnLoginAndReg{
   background: transparent;
-  width: 6rem;
+  width: 60%;
   height: 2rem;
-  margin: 0 0.5rem;
+  margin: 7rem 0.5rem;
   border-radius: 1rem;
   cursor: pointer;
   outline: none;
@@ -103,37 +103,13 @@ header h3 {
   color: #fff;
 }
 
-/* Modal */
-.modal-wrapper {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background: #24232354;
-  display: none;
-}
-
-.modal {
-  position: relative;
-  background: #fff;
-  text-align: center;
-  width: 25rem;
-  margin: 5rem auto;
-  -webkit-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
-  box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
-  animation-name: animatetop;
-  animation-duration: .4s;
-}
-
 .login-modal{
   position: relative;
   background: #fff;
   text-align: center;
   width: 20rem;
   height: 25rem;
-  margin: 5rem auto;
+  margin: 9rem auto;
   -webkit-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
   box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
@@ -145,42 +121,14 @@ display: none;;
   background: #0095FF;
   padding: 1.5rem;
   color: #fff;
-  
-}
-
-.button_container{
-  width: 100%;
-  margin: 5rem auto;
-}
-
-@keyframes animatetop {
-  from {
-    top: -300px; opacity: 0;
-  }
-  to {
-    top: 0; opacity: 1;
-  }
 }
 
 .modal-show {
   display: block;
 }
 
-.modal-header {
-  margin-bottom: 1rem;
-  background: #f8fafb;
-  padding: 2rem;
-}
-
 .modal-body {
   padding: 2rem;
-}
-
-.btn-modal {
-  background: var(--primary-color);
-  border: none;
-  color: #fff;
-  width: 9rem;
 }
 
 input {
