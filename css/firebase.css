@@ -28,7 +28,7 @@ body {
 header {
   width: 100%;
   background: var(--primary-color);
-  padding: 1.5rem;
+  padding: 0.5rem;
 }
 
 header h3 {
@@ -119,7 +119,7 @@ display: none;;
 .login-header {
   margin-bottom: 1rem;
   background: #0095FF;
-  padding: 1.5rem;
+  padding: 0.5rem;
   color: #fff;
 }
 
