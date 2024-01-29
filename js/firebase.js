@@ -150,7 +150,7 @@ const renderUser = doc => {
 
     const btnDownload = document.querySelector(`[data-id='${doc.id}'] .btn-download`);
     btnDownload.addEventListener('click', () => {
-        convertToCsv(arrayAllReports.find(report=>{return report.id=doc.id}));
+        convertToCsv(arrayAllReports.find(report=>{return report.id==doc.id}));
     });
 }
 
