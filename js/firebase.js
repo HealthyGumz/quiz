@@ -4,35 +4,15 @@ const tableUsers = document.querySelector('.table-users');
 var arrayAllReports =[];
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCNfJbkMiwe0bt-uJIugRDsBK9NUsb79Gg",
-    authDomain: "dbtest-ab425.firebaseapp.com",
-    projectId: "dbtest-ab425",
-    storageBucket: "dbtest-ab425.appspot.com",
-    messagingSenderId: "166629080487",
-    appId: "1:166629080487:web:61b7db5d29a2cb94090a82",
-    measurementId: "G-7FVTTDGWEL",
-    databaseURL: "https://dbtest-ab425-default-rtdb.firebaseio.com"
+  apiKey: "AIzaSyCMn7SgkQj5ZHw3MdCwLJr4gCDS7yzbrP8",
+  authDomain: "healthygumzrisktest.firebaseapp.com",
+  projectId: "healthygumzrisktest",
+  storageBucket: "healthygumzrisktest.appspot.com",
+  messagingSenderId: "336290999628",
+  appId: "1:336290999628:web:67bcfa41cadbe6326673e9",
+  measurementId: "G-70BZYJ7SXE",
+  databaseURL: " https://healthygumzrisktest-default-rtdb.firebaseio.com"
 };
-
-
-// {
-//     "rules": {
-//       ".read": "auth!=null",
-//       ".write": true
-//     }
-//   }
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCMn7SgkQj5ZHw3MdCwLJr4gCDS7yzbrP8",
-//   authDomain: "healthygumzrisktest.firebaseapp.com",
-//   databaseURL: "https://healthygumzrisktest-default-rtdb.firebaseio.com",
-//   projectId: "healthygumzrisktest",
-//   storageBucket: "healthygumzrisktest.appspot.com",
-//   messagingSenderId: "336290999628",
-//   appId: "1:336290999628:web:67bcfa41cadbe6326673e9",
-//   measurementId: "G-70BZYJ7SXE",
-//   databaseURL: " https://healthygumzrisktest-default-rtdb.firebaseio.com"
-// };
 
 //---------  Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
