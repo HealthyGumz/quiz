@@ -17,7 +17,7 @@ body {
 }
 
 .report-container {
-  max-width: 40%;
+  max-width: 60%;
   margin: 9rem auto;
   padding-bottom: 1rem;
   border: 1px solid var(--primary-color);
@@ -49,7 +49,7 @@ body {
   background: transparent;
   width: 6rem;
   height: 2rem;
-  border-radius: 1rem;
+  border-radius: 10px;
   cursor: pointer;
   outline: none;
   transition: all .5s ease;
@@ -80,6 +80,7 @@ body {
 
 .table-wrapper {
   text-align: center;
+  height: 100%;
 
 }
 
@@ -89,7 +90,7 @@ body {
   width: 55%;
   height: 2rem;
   margin: 2rem 0.5rem;
-  border-radius: 1rem;
+  border-radius: 10px;
   cursor: pointer;
   outline: none;
   transition: all .5s ease;
@@ -111,9 +112,9 @@ body {
   ;
 }
 
-/* .btnBlock {
+.btnBlock {
   margin: 0 2rem;
-} */
+}
 
 .reports-caption {
   margin: 0.3rem 1rem;
@@ -128,8 +129,8 @@ body {
   background: #0095FF;
   padding: 1.2rem;
   color: #fff;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .login-header {
@@ -138,8 +139,8 @@ body {
   background: #0095FF;
   padding: 0.5rem;
   color: #fff;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .modal-show {
@@ -161,7 +162,7 @@ input {
   height: 1.8rem;
   margin-bottom: 0.7rem;
   text-indent: .5rem;
-  border-radius: 15px;
+  border-radius: 10px;
   outline: none;
   border: 0.04px solid;
 }
