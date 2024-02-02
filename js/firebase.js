@@ -1,11 +1,13 @@
 //------------ FireBase----------------------
 
 const tableUsers = document.querySelector('.table-users');
-var arrayAllReports =[];
+var arrayAllReports = [];
+var arrayIdName = [];
 
 const firebaseConfig = {
   apiKey: "AIzaSyCMn7SgkQj5ZHw3MdCwLJr4gCDS7yzbrP8",
   authDomain: "healthygumzrisktest.firebaseapp.com",
+  databaseURL: "https://healthygumzrisktest-default-rtdb.firebaseio.com",
   projectId: "healthygumzrisktest",
   storageBucket: "healthygumzrisktest.appspot.com",
   messagingSenderId: "336290999628",
@@ -14,46 +16,29 @@ const firebaseConfig = {
   databaseURL: " https://healthygumzrisktest-default-rtdb.firebaseio.com"
 };
 
-//---------  Initialize Firebase
+//---------  Initialize Firebase ----------------------
 const app = firebase.initializeApp(firebaseConfig);
 const db = app.database();
 const dbRef = db.ref('Reports');
 const currentDate = new Date().toLocaleDateString();
 
 
-//----------  Login and Registration
-function newRegistration() {
-    const email = document.querySelector("#email").value;
-    const password = document.querySelector('#password').value;
+//----------  Login -------------------------------
 
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            // Signed in 
-            var user = userCredential.user;
-            // ...
-        })
-        .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ..
-        });
-}
+document.querySelector("#email").value = getCookie('email');
+document.querySelector("#password").value = getCookie('password');
 
 function loginExistingUsers() {
 
-    // var loginContainer = document.querySelector('.login-modal');
-    // var mainContainer = document.querySelector('.container');
-    // loginContainer.classList.remove('modal-show');
-    // mainContainer.classList.add('modal-show');
-    // getDataFromDB()
-
     const email = document.querySelector("#email").value;
-    const password = document.querySelector('#password').value;
+    const password = document.querySelector("#password").value;
 
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // Signed in
             var user = userCredential.user;
+            setCookie('email', email, '30')
+            setCookie('password', password, '30')
             var loginContainer = document.querySelector('.login-modal');
             var mainContainer = document.querySelector('.report-container');
             loginContainer.classList.remove('modal-show');
@@ -62,12 +47,36 @@ function loginExistingUsers() {
             // ...
         })
         .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
+            document.getElementById("dlgLoginInvalid").style.display = "block";
         });
 }
 
-//--------- FireBase
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+
+
+//--------------------------- FireBase -------------------------------------
 
 function getDataFromDB() {
     dbRef.get().then((snapshot) => {
@@ -82,7 +91,6 @@ function getDataFromDB() {
 }
 
 function updateReportTable(allReportsFromDB) {
-    const arrayIdName = [];
 
     for (var name in allReportsFromDB) {
         arrayIdName.push(name);
@@ -104,82 +112,125 @@ function updateReportTable(allReportsFromDB) {
 const renderUser = doc => {
     const tr = `
       <tr data-id='${doc.id}'>
-        <td>${doc.date}</td>
+      <td> <input type="checkbox" class="checkbox" /></td>
+      <td>${doc.date}</td>
         <td>${doc.userData.name}</td>
         <td>${doc.userData.email}</td>
         <td>${doc.userData.code}</td>
-        <td>
-          <button class="btn btn-download">Download</button>
-          <button class="btn btn-delete">Delete</button>
-        </td>
       </tr>
     `;
     tableUsers.insertAdjacentHTML('beforeend', tr);
+}
 
-    const btnDelete = document.querySelector(`[data-id='${doc.id}'] .btn-delete`);
-    btnDelete.addEventListener('click', () => {
-        dbRef.child(doc.id).remove().
-            then(() => {
-                let tr = document.querySelector(`[data-id='${doc.id}']`);
-                let tbody = tr.parentElement;
-                tableUsers.removeChild(tbody);
-            }).catch((error) => {
-                console.log(error);
+const btnDelete = document.querySelector('#btnDelete');
+btnDelete.addEventListener('click', () => {
+    document.getElementById("dlgDelete").style.display = "block";
+});
+
+const btnConfirm = document.querySelector('#btnConfirm');
+btnConfirm.addEventListener('click', () => {
+    var btnCheckBox;
+    var idName;
+
+    for (i = 0; i < arrayIdName.length; i++) {
+        btnCheckBox = document.querySelector(`[data-id='${arrayIdName[i]}'] .checkbox`);
+        if (btnCheckBox !== null && btnCheckBox.checked) {
+            idName = arrayIdName[i];
+            let tr = document.querySelector(`[data-id='${arrayIdName[i]}']`);
+            let tbody = tr.parentElement;
+            tableUsers.removeChild(tbody);
+            delete arrayIdName[i];
+            dbRef.child(idName).remove().
+                then(() => {
+                }).catch((error) => {
+                    console.log(error);
+                })
+        }
+
+    }
+    document.getElementById("dlgDelete").style.display = "none";
+});
+
+
+
+const btnLoginClose = document.querySelector('#btnLoginClose');
+btnLoginClose.addEventListener('click', () => {
+    document.getElementById("dlgLoginInvalid").style.display = "none";
+
+});
+
+const btnDeleteClose = document.querySelector('#btnDeleteClose');
+btnDeleteClose.addEventListener('click', () => {
+    document.getElementById("dlgDelete").style.display = "none";
+
+});
+
+
+const btnSelectClose = document.querySelector('#btnSelectClose');
+btnSelectClose.addEventListener('click', () => {
+    document.getElementById("dlgSelectItem").style.display = "none";
+
+});
+
+const btnDownload = document.querySelector('#btnDownload');
+btnDownload.addEventListener('click', () => {
+    var btnCheckBox;
+    var idName;
+    var csvStr;
+    var report;
+    var isOneSelected = false;
+
+    for (i = 0; i < arrayIdName.length; i++) {
+        btnCheckBox = document.querySelector(`[data-id='${arrayIdName[i]}'] .checkbox`);
+        if (btnCheckBox !== null && btnCheckBox.checked) {
+            idName = arrayIdName[i];
+            isOneSelected = true;
+            report = arrayAllReports.find(rep => { return rep.id === idName })
+
+            csvStr += 'Date' + ';' + report.date + "\n";
+            csvStr += 'Name' + ';' + report.userData.name + "\n";
+            csvStr += 'E-mail' + ';' + report.userData.email + "\n";
+            csvStr += 'Zip code' + ';' + report.userData.code + "\n";
+            csvStr += ' ' + ';' + ' ' + "\n";
+
+            report.testReport.forEach(element => {
+                question = element[0];
+                answer = element[1];
+
+                csvStr += question + ';' + answer + "\n";
             })
-    });
 
-    const btnDownload = document.querySelector(`[data-id='${doc.id}'] .btn-download`);
-    btnDownload.addEventListener('click', () => {
-        convertToCsv(arrayAllReports.find(report=>{return report.id==doc.id}));
-    });
-}
+            csvStr += ' ' + ';' + ' ' + "\n";
+            csvStr += ' ' + ';' + ' ' + "\n";
+        }
 
+    }
 
+    if (isOneSelected) {
+        fileName = 'Reports.csv';
+        downloadCSV(fileName, csvStr);
+    }
+    else
+        document.getElementById("dlgSelectItem").style.display = "block";
+});
 
-function convertToCsv(report) {
+document.querySelector('#checkBoxAll').addEventListener('click', () => {
+    var chkboxState;
+    var btnCheckBox;
 
-    // for (i = 0; i < arrayOfJson.length; i++) {
+    if (document.querySelector('#checkBoxAll').checked)
+        chkboxState = true;
+    else
+        chkboxState = false;
 
+    for (i = 0; i < arrayIdName.length; i++) {
+        btnCheckBox = document.querySelector(`[data-id='${arrayIdName[i]}'] .checkbox`);
+        if (btnCheckBox !== null)
+            btnCheckBox.checked = chkboxState;
 
-    //     var csvStr = 'Date' + ';' + arrayOfJson[i].date + "\n";
-    //     csvStr += 'Name' + ';' + arrayOfJson[i].userData.name + "\n";
-    //     csvStr += 'E-mail' + ';' + arrayOfJson[i].userData.email + "\n";
-    //     csvStr += 'Zip code' + ';' + arrayOfJson[i].userData.code + "\n";
-    //     csvStr += ' ' + ';' + ' ' + "\n";
+    }
+});
 
-    //     arrayOfJson[i].testReport.forEach(element => {
-    //         question = element[0];
-    //         answer = element[1];
-
-    //         csvStr += question + ';' + answer + "\n";
-    //     })
-
-    //     fileName = arrayOfJson[i].userData.email + '.csv';
-    //     downloadCSV(fileName, csvStr);
-
-    // }
-
-
-    var csvStr = 'Date' + ';' + report.date + "\n";
-    csvStr += 'Name' + ';' + report.userData.name + "\n";
-    csvStr += 'E-mail' + ';' + report.userData.email + "\n";
-    csvStr += 'Zip code' + ';' + report.userData.code + "\n";
-    csvStr += ' ' + ';' + ' ' + "\n";
-
-    report.testReport.forEach(element => {
-        question = element[0];
-        answer = element[1];
-
-        csvStr += question + ';' + answer + "\n";
-    })
-
-    fileName = report.userData.email + '.csv';
-    downloadCSV(fileName, csvStr);
-
-
-
-
-}
 
 function downloadCSV(fileName, csvStr) {
 
@@ -189,10 +240,6 @@ function downloadCSV(fileName, csvStr) {
     hiddenElement.download = fileName;
     hiddenElement.click();
 }
-
-
-
-
 // function addDataToDB(mail, name, zipCode, bodyQuestions) {
 //     const autoId = dbRef.push().key;
 //     dbRef.child(autoId).set({
