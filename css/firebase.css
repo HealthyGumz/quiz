@@ -6,16 +6,6 @@
   --third-color: #0651B9;
 }
 
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
-
-body {
-  font-family: 'Roboto', sans-serif;
-}
-
 .report-container {
   max-width: 60%;
   margin: 9rem auto;
@@ -56,6 +46,10 @@ body {
   margin: 0 0.4rem;
 }
 
+.btnBlock{
+
+  padding: 0.3rem;
+}
 .btn-download, .btn-close {
   color: #fff;
   background-color: var(--third-color);
@@ -87,24 +81,25 @@ body {
 
 .btnLogin {
   background: transparent;
-  width: 55%;
-  height: 2rem;
-  margin: 1.2rem 0.5rem;
-  border-radius: 10px;
+  width: 60%;
+  height: 2.3rem;
+  margin: 3rem 0.5rem;
+  border-radius: 15px;
   cursor: pointer;
   outline: none;
   transition: all .5s ease;
   background: var(--third-color);
   border: none;
   color: #fff;
+  font-size: 18px;
 }
 
 .login-modal {
   position: relative;
   background: #fff;
   text-align: center;
-  width: 14rem;
-  height: 15rem;
+  width: 16rem;
+  height: 17rem;
   margin: 9rem auto;
   border: 1px solid var(--primary-color);
   border-radius: 10px;
@@ -114,12 +109,13 @@ body {
 
 
 .reports-caption {
-  margin: 0.3rem 1rem;
+  margin: 0.4rem 1rem;
   }
 
 .reports-caption h3{
   margin: 0;
   padding: 0;
+  font-size: 20px;
 }
 
 .report-header {
@@ -145,7 +141,9 @@ body {
 }
 
 .login-header h3{
-  margin: 0;;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
 }
 .modal-show {
   display: block;
@@ -165,10 +163,12 @@ input {
   width: 90%;
   height: 1.8rem;
   margin-bottom: 0.7rem;
-  text-indent: .5rem;
+  text-indent: .3rem;
   border-radius: 10px;
   outline: none;
   border: 0.04px solid;
+    padding: 0;
+    font-size: 16px;
 }
 
 
