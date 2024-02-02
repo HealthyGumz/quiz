@@ -150,27 +150,6 @@ function nextPrev(n) {
 }
 
 
-
-function navClick(currentNav) {
-  // var x = document.getElementsByClassName("form-step");
-
-  // for (i = 0; i < x.length; i++) {
-  //   x[currentTab].style.display = "none";
-  // }
-
-  // if (currentNav == 1) {
-  //   currentTab = 0;
-  //   showTab(currentTab);
-  // }
-  // else {
-  //   document.getElementById("nextBtn").innerHTML = "Next";
-  //   currentTab = currentNav - 2;
-  //   nextPrev(1);
-  // }
-}
-
-
-
 function isDiabetesCheck(isCheck) {
 
   if (isCheck == 1) {
@@ -182,7 +161,6 @@ function isDiabetesCheck(isCheck) {
     $("#stepIsDiabetes").slideUp(500);
   }
 }
-
 
 
 function checkResult() {
@@ -417,10 +395,6 @@ function sendMail() {
     templateId = "template_j7xp7xq";
   };
 
-  if (document.getElementById("dontSendPersonalData").checked) {
-
-  }
-
 
   var data = {
     service_id: 'service_wrag93q',
@@ -443,8 +417,7 @@ function sendMail() {
     data: JSON.stringify(data),
     contentType: 'application/json'
   }).done(function () {
-    // document.getElementById("sendMailSuccess").style.display = "block";
-    // document.getElementById("sendMail").style.display = "none";
+
   }).fail(function (error) {
     document.getElementById("sendMailUnsuccess").style.display = "block";
     document.getElementById("sendMailSuccess").style.display = "none";
@@ -523,7 +496,7 @@ function createPdf() {
 
 
   pdfBase64 = doc.output('datauristring');
-  // doc.save("Test.pdf");
+
 }
 
 //------------ FireBase----------------------
@@ -539,6 +512,8 @@ const firebaseConfig = {
   databaseURL: " https://healthygumzrisktest-default-rtdb.firebaseio.com"
 };
 
+
+
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const db = app.database();
@@ -552,9 +527,7 @@ function addDataToDB(mail, name, zipCode, bodyQuestions) {
     userData: { name: name, email: mail, code: zipCode },
     testReport: bodyQuestions
   }).then(() => {
-    // alert("Data Added Successfully");
   }).catch((error) => {
-    // alert("Error Data");
     console.log(error);
   })
 }
