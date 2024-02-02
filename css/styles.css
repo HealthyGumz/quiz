@@ -381,8 +381,6 @@ width: 50%;
 .button {
   position: relative;
   display: inline-block;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   text-transform: uppercase;
   font: normal normal normal 14px/16px Overpass;
   color: white;
@@ -400,11 +398,8 @@ width: 50%;
 .buttonWhite{
   position: relative;
   display: inline-block;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   text-transform: uppercase;
   font: normal bold normal 18px/51px Overpass;
-  
   color:black;
   height: 48px;
   padding: 0px 20px;
@@ -511,6 +506,7 @@ span{
   margin-right: 50px;
   margin-left: auto;
   max-width: 50%;
+  padding-top: 25px;
 }
 
 .required-field::after {
