@@ -6,11 +6,11 @@
   --third-color: #0651B9;
 }
 
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+} */
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -23,7 +23,7 @@ body {
   border: 1px solid var(--primary-color);
   border-radius: 10px;
   display: none;
-}
+  }
 
 .table-users {
   width: 95%;
@@ -89,7 +89,7 @@ body {
   background: transparent;
   width: 55%;
   height: 2rem;
-  margin: 2rem 0.5rem;
+  margin: 1.2rem 0.5rem;
   border-radius: 10px;
   cursor: pointer;
   outline: none;
@@ -112,14 +112,15 @@ body {
   ;
 }
 
-.btnBlock {
-  margin: 0 2rem;
-}
 
 .reports-caption {
   margin: 0.3rem 1rem;
-}
+  }
 
+.reports-caption h3{
+  margin: 0;
+  padding: 0;
+}
 
 .report-header {
   display: flex;
@@ -137,12 +138,15 @@ body {
   margin-bottom: 1rem;
   text-align: center;
   background: #0095FF;
-  padding: 0.5rem;
-  color: #fff;
+  padding: 1rem;
+    color: #fff;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
 
+.login-header h3{
+  margin: 0;;
+}
 .modal-show {
   display: block;
 }
