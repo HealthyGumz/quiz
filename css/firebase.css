@@ -82,9 +82,9 @@
 .btnLogin {
   background: transparent;
   width: 60%;
-  height: 2.3rem;
+  height: 2rem;
   margin: 3rem 0.5rem;
-  border-radius: 15px;
+  border-radius: 25px;
   cursor: pointer;
   outline: none;
   transition: all .5s ease;
@@ -98,8 +98,8 @@
   position: relative;
   background: #fff;
   text-align: center;
-  width: 16rem;
-  height: 17rem;
+  width: 18rem;
+  height: 18rem;
   margin: 9rem auto;
   border: 1px solid var(--primary-color);
   border-radius: 10px;
@@ -150,7 +150,7 @@
 }
 
 .modal-body {
-  padding: 1rem;
+  padding: 1rem 2rem;
 }
 
 .checkbox {
@@ -161,13 +161,13 @@
 
 input {
   width: 90%;
-  height: 1.8rem;
+  height: 2rem;
   margin-bottom: 0.7rem;
-  text-indent: .3rem;
-  border-radius: 10px;
+  text-indent: 14px;
+  border-radius: 15px;
   outline: none;
   border: 0.04px solid;
-    padding: 0;
+    /* padding: 0; */
     font-size: 16px;
 }
 
