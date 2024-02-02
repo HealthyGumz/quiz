@@ -5,15 +5,15 @@ var arrayAllReports = [];
 var arrayIdName = [];
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCMn7SgkQj5ZHw3MdCwLJr4gCDS7yzbrP8",
-  authDomain: "healthygumzrisktest.firebaseapp.com",
-  databaseURL: "https://healthygumzrisktest-default-rtdb.firebaseio.com",
-  projectId: "healthygumzrisktest",
-  storageBucket: "healthygumzrisktest.appspot.com",
-  messagingSenderId: "336290999628",
-  appId: "1:336290999628:web:67bcfa41cadbe6326673e9",
-  measurementId: "G-70BZYJ7SXE",
-  databaseURL: " https://healthygumzrisktest-default-rtdb.firebaseio.com"
+    apiKey: "AIzaSyCMn7SgkQj5ZHw3MdCwLJr4gCDS7yzbrP8",
+    authDomain: "healthygumzrisktest.firebaseapp.com",
+    databaseURL: "https://healthygumzrisktest-default-rtdb.firebaseio.com",
+    projectId: "healthygumzrisktest",
+    storageBucket: "healthygumzrisktest.appspot.com",
+    messagingSenderId: "336290999628",
+    appId: "1:336290999628:web:67bcfa41cadbe6326673e9",
+    measurementId: "G-70BZYJ7SXE",
+    databaseURL: " https://healthygumzrisktest-default-rtdb.firebaseio.com"
 };
 
 //---------  Initialize Firebase ----------------------
@@ -26,12 +26,18 @@ const currentDate = new Date().toLocaleDateString();
 //----------  Login -------------------------------
 
 document.querySelector("#email").value = getCookie('email');
-document.querySelector("#password").value = getCookie('password');
+var tempPassword = getCookie('password');
+if (tempPassword !== '') {
+    document.querySelector("#password").value = '**********';
+}
 
 function loginExistingUsers() {
 
     const email = document.querySelector("#email").value;
-    const password = document.querySelector("#password").value;
+    var password = document.querySelector("#password").value;
+    if (password === '**********'){
+        password = tempPassword;
+    }
 
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
@@ -44,7 +50,6 @@ function loginExistingUsers() {
             loginContainer.classList.remove('modal-show');
             mainContainer.classList.add('modal-show');
             getDataFromDB()
-            // ...
         })
         .catch((error) => {
             document.getElementById("dlgLoginInvalid").style.display = "block";
