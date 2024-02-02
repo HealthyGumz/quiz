@@ -26,18 +26,12 @@ const currentDate = new Date().toLocaleDateString();
 //----------  Login -------------------------------
 
 document.querySelector("#email").value = getCookie('email');
-var tempPassword = getCookie('password');
-if (tempPassword !== '') {
-    document.querySelector("#password").value = '**********';
-}
+document.querySelector("#password").value=getCookie('password');
 
 function loginExistingUsers() {
 
     const email = document.querySelector("#email").value;
-    var password = document.querySelector("#password").value;
-    if (password === '**********'){
-        password = tempPassword;
-    }
+    const password = document.querySelector("#password").value
 
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
