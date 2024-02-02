@@ -84,7 +84,7 @@
   width: 60%;
   height: 2rem;
   margin: 3rem 0.5rem;
-  border-radius: 25px;
+  border-radius: 10px;
   cursor: pointer;
   outline: none;
   transition: all .5s ease;
@@ -150,7 +150,7 @@
 }
 
 .modal-body {
-  padding: 1rem 2rem;
+  padding: 1rem 1.2rem;
 }
 
 .checkbox {
@@ -164,7 +164,7 @@ input {
   height: 2rem;
   margin-bottom: 0.7rem;
   text-indent: 14px;
-  border-radius: 15px;
+  border-radius: 25px;
   outline: none;
   border: 0.04px solid;
     /* padding: 0; */
