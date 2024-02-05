@@ -30,6 +30,10 @@
   
 }
 
+.sortPointer{
+  cursor: pointer;
+}
+
 .table-users th {
   background: #fafafa;
   padding: 1rem auto;
