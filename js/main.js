@@ -15,6 +15,7 @@ var pdfLineHeight = 270;
 var pdfImagePath = '';
 
 
+
 function init() {
 
   widthDoc = document.body.clientWidth;
@@ -369,7 +370,8 @@ function sendMail() {
   //  var zipCode = document.getElementById("inpuZipCode").value;
   // addDataToDB(mail, name,zipCode, bodyQuestions);
 
- var templateId = 0;
+var testResultName, resultSortIndex;
+var templateId = 0;
 
   if (!validateMail()) return;
 
@@ -383,18 +385,26 @@ function sendMail() {
   var mail = document.getElementById("inputMail").value;
   var zipCode = document.getElementById("inpuZipCode").value;
 
-  addDataToDB(mail, name,zipCode, bodyQuestions);
 
-  if (testResult == 5) {
-    templateId = "template_3pmn0jm";
-  }
-  else if (testResult == 15) {
-    templateId = "template_p48pjfj";
-  }
-  else if (testResult == 25) {
-    templateId = "template_j7xp7xq";
-  };
 
+  switch (testResult) {
+    case 5:
+      templateId = "template_3pmn0jm";
+      testResultName = 'Low';
+      resultSortIndex=0;
+      break;
+    case 15:
+      templateId = "template_p48pjfj";
+      testResultName = 'Moderate';
+      resultSortIndex=1;
+      break;
+    case 25:
+      templateId = "template_j7xp7xq";
+      testResultName = 'High';
+      resultSortIndex=2;
+      break;
+  }
+  addDataToDB(mail, name, zipCode,testResultName,resultSortIndex, bodyQuestions);
 
   var data = {
     service_id: 'service_wrag93q',
@@ -496,7 +506,7 @@ function createPdf() {
 
 
   pdfBase64 = doc.output('datauristring');
-
+  // doc.save("Test.pdf");
 }
 
 //------------ FireBase----------------------
@@ -513,17 +523,18 @@ const firebaseConfig = {
 };
 
 
-
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const db = app.database();
 const dbRef = db.ref('Reports');
 const currentDate = new Date().toLocaleDateString("en-US");
 
-function addDataToDB(mail, name, zipCode, bodyQuestions) {
+function addDataToDB(mail, name, zipCode, testResultName, resultSortIndex, bodyQuestions) {
   const autoId = dbRef.push().key;
   dbRef.child(autoId).set({
-    date:currentDate,
+    date: currentDate,
+    testResult: testResultName,
+    resultSortIndex:resultSortIndex,
     userData: { name: name, email: mail, code: zipCode },
     testReport: bodyQuestions
   }).then(() => {

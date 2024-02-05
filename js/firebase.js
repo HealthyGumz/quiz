@@ -2,7 +2,7 @@
 
 const tableUsers = document.querySelector('.table-users');
 var arrayAllReports = [];
-var arrayIdName = [];
+var sortDirection = "desc";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCMn7SgkQj5ZHw3MdCwLJr4gCDS7yzbrP8",
@@ -16,6 +16,9 @@ const firebaseConfig = {
     databaseURL: " https://healthygumzrisktest-default-rtdb.firebaseio.com"
 };
 
+
+
+
 //---------  Initialize Firebase ----------------------
 const app = firebase.initializeApp(firebaseConfig);
 const db = app.database();
@@ -26,7 +29,7 @@ const currentDate = new Date().toLocaleDateString();
 //----------  Login -------------------------------
 
 document.querySelector("#email").value = getCookie('email');
-document.querySelector("#password").value=getCookie('password');
+document.querySelector("#password").value = getCookie('password');
 
 function loginExistingUsers() {
 
@@ -90,6 +93,7 @@ function getDataFromDB() {
 }
 
 function updateReportTable(allReportsFromDB) {
+    var arrayIdName = [];
 
     for (var name in allReportsFromDB) {
         arrayIdName.push(name);
@@ -101,6 +105,8 @@ function updateReportTable(allReportsFromDB) {
         arrayAllReports.push(objJson);
     }
 
+    arrayAllReports.sort((a, b) =>new Date(b.date) - new Date(a.date));
+    
     arrayAllReports.forEach(report => {
         renderUser(report);
     })
@@ -111,8 +117,9 @@ function updateReportTable(allReportsFromDB) {
 const renderUser = doc => {
     const tr = `
       <tr data-id='${doc.id}'>
-      <td> <input type="checkbox" class="checkbox" /></td>
-      <td>${doc.date}</td>
+        <td> <input type="checkbox" class="checkbox" /></td>
+        <td>${doc.testResult}</td>
+        <td>${doc.date}</td>
         <td>${doc.userData.name}</td>
         <td>${doc.userData.email}</td>
         <td>${doc.userData.code}</td>
@@ -130,23 +137,27 @@ const btnConfirm = document.querySelector('#btnConfirm');
 btnConfirm.addEventListener('click', () => {
     var btnCheckBox;
     var idName;
+    var i=0;
 
-    for (i = 0; i < arrayIdName.length; i++) {
-        btnCheckBox = document.querySelector(`[data-id='${arrayIdName[i]}'] .checkbox`);
+    do {
+        btnCheckBox = document.querySelector(`[data-id='${arrayAllReports[i].id}'] .checkbox`);
         if (btnCheckBox !== null && btnCheckBox.checked) {
-            idName = arrayIdName[i];
-            let tr = document.querySelector(`[data-id='${arrayIdName[i]}']`);
+            idName =arrayAllReports[i].id;
+            let tr = document.querySelector(`[data-id='${arrayAllReports[i].id}']`);
             let tbody = tr.parentElement;
             tableUsers.removeChild(tbody);
-            delete arrayIdName[i];
+            arrayAllReports.splice(i,1);
             dbRef.child(idName).remove().
                 then(() => {
                 }).catch((error) => {
                     console.log(error);
                 })
+            i--;
         }
-
+        i++;
     }
+    while ( i < arrayAllReports.length);
+
     document.getElementById("dlgDelete").style.display = "none";
 });
 
@@ -174,18 +185,17 @@ btnSelectClose.addEventListener('click', () => {
 const btnDownload = document.querySelector('#btnDownload');
 btnDownload.addEventListener('click', () => {
     var btnCheckBox;
-    var idName;
-    var csvStr;
+    var csvStr="";
     var report;
     var isOneSelected = false;
 
-    for (i = 0; i < arrayIdName.length; i++) {
-        btnCheckBox = document.querySelector(`[data-id='${arrayIdName[i]}'] .checkbox`);
+    for (i = 0; i < arrayAllReports.length; i++) {
+        btnCheckBox = document.querySelector(`[data-id='${arrayAllReports[i].id}'] .checkbox`);
         if (btnCheckBox !== null && btnCheckBox.checked) {
-            idName = arrayIdName[i];
             isOneSelected = true;
-            report = arrayAllReports.find(rep => { return rep.id === idName })
+            report = arrayAllReports.find(rep => { return rep.id === arrayAllReports[i].id })
 
+            csvStr += 'Result' + ';' + report.testResult + "\n";
             csvStr += 'Date' + ';' + report.date + "\n";
             csvStr += 'Name' + ';' + report.userData.name + "\n";
             csvStr += 'E-mail' + ';' + report.userData.email + "\n";
@@ -222,8 +232,8 @@ document.querySelector('#checkBoxAll').addEventListener('click', () => {
     else
         chkboxState = false;
 
-    for (i = 0; i < arrayIdName.length; i++) {
-        btnCheckBox = document.querySelector(`[data-id='${arrayIdName[i]}'] .checkbox`);
+    for (i = 0; i < arrayAllReports.length; i++) {
+        btnCheckBox = document.querySelector(`[data-id='${arrayAllReports[i].id}'] .checkbox`);
         if (btnCheckBox !== null)
             btnCheckBox.checked = chkboxState;
 
@@ -239,14 +249,34 @@ function downloadCSV(fileName, csvStr) {
     hiddenElement.download = fileName;
     hiddenElement.click();
 }
-// function addDataToDB(mail, name, zipCode, bodyQuestions) {
-//     const autoId = dbRef.push().key;
-//     dbRef.child(autoId).set({
-//         date: currentDate,
-//         userData: { name: name, email: mail, code: zipCode },
-//         testReport: bodyQuestions
-//     }).then(() => {
-//     }).catch((error) => {
-//         console.log(error);
-//     })
-// }
+
+function sortTable(sortRowIndex) {
+
+    var rowCount = tableUsers.rows.length;
+    for (var i = 1; i < rowCount; i++) {
+        tableUsers.deleteRow(1);
+    }
+
+    switch (sortRowIndex) {
+        case 1:
+             arrayAllReports.sort((a, b) => a.resultSortIndex-b.resultSortIndex);
+        case 2:
+            arrayAllReports.sort((a, b) => new Date( b.date)- new Date(a.date));
+            break;
+    }
+
+    if (sortDirection === "asc") {
+        sortDirection = "desc";
+    }
+    else {
+        arrayAllReports.reverse();
+        sortDirection = "asc";
+    }
+
+    arrayAllReports.forEach(report => {
+        renderUser(report);
+    })
+
+}
+
+
