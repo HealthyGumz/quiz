@@ -322,6 +322,7 @@ padding: 30px;
 }
 
 .step-aside-result{
+  display: block;
 width: 50%;
 }
 
@@ -363,8 +364,6 @@ width: 50%;
 
 
 #stepActionsResult {
-  display: flex;
-  margin: -97px 0px 40px 0px;
   width: 100%;
   padding: 0px 45px;
 } 
@@ -424,15 +423,31 @@ width: 50%;
  }
 
  .callToSpecialist{
-  float: right;
-  margin-left: auto;
-  max-width: 100%;
+  display: flex;
+  justify-content: center;
+
  }
 
-  .tryAgain{
-  display: flex;
-  position: relative;
-  justify-content: left;
+.callToSpecialistBtn{
+ background-color: #0651b9;
+ color: #fff;
+ border: 1px solid #0651b9;
+ border-radius: 10px;
+ padding: 4px 34px 2px;
+ margin: 20px 0 20px 0;
+ font: normal normal 600 20px/42px Overpass;
+ cursor: pointer;
+ text-decoration:none;
+}
+
+a:hover {
+  background: #0651b9; 
+  color: white;
+  text-decoration:none;
+}
+
+ .tryAgain{
+  margin-left: auto;
    text-transform: uppercase;
   font: normal bold normal 18px/51px Overpass;
 
@@ -444,7 +459,7 @@ width: 50%;
 
 
  #tryAgainBtn{
-  margin: 6px 0 0 5px;
+  text-align: center;
   cursor: pointer;
  }
 
@@ -741,7 +756,7 @@ span{
   font: normal normal 400 18px/18px Overpass;
 }
 
-#stepActionsResult {
+/* #stepActionsResult {
   margin: 0 0 20px 0;
   padding: 0 0;
   width: 100%;
@@ -749,11 +764,8 @@ span{
   justify-content: center;
   flex-wrap: wrap;
   height: auto;
-}
-
- .stepActionsResult{
   display: none;
- }
+} */
 
  #stepActionsResultMob{
     margin:30px 0 20px 0 ;
