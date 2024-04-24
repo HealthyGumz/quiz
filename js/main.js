@@ -201,7 +201,7 @@ function checkResult() {
 
 
   if (widthDoc > 940) {
-    document.getElementById("stepActionsResult").style.display = "flex";
+    document.getElementById("stepActionsResult").style.display = "block";
   }
   else {
     document.getElementById("stepActionsResultMob").style.display = "block";
@@ -365,10 +365,6 @@ function ClearErrorStyle(event) {
 
 function sendMail() {
 
-  // var name = document.getElementById("inputName").value;
-  //  var mail = document.getElementById("inputMail").value;
-  //  var zipCode = document.getElementById("inpuZipCode").value;
-  // addDataToDB(mail, name,zipCode, bodyQuestions);
 
 var testResultName, resultSortIndex;
 var templateId = 0;
@@ -384,8 +380,6 @@ var templateId = 0;
   var name = document.getElementById("inputName").value;
   var mail = document.getElementById("inputMail").value;
   var zipCode = document.getElementById("inpuZipCode").value;
-
-
 
   switch (testResult) {
     case 5:
@@ -404,6 +398,7 @@ var templateId = 0;
       resultSortIndex=2;
       break;
   }
+
   addDataToDB(mail, name, zipCode,testResultName,resultSortIndex, bodyQuestions);
 
   var data = {
@@ -421,6 +416,19 @@ var templateId = 0;
 
   document.getElementById("sendMailSuccess").style.display = "block";
   document.getElementById("sendMail").style.display = "none";
+
+  switch (testResult) {
+    case 5:
+      window.open("https://www.healthygumz.com/your-result-was-successfully-sent---low-risk", "_blank");
+      break;
+    case 15:
+      window.open("https://www.healthygumz.com/your-result-was-successfully-sent---moderate-risk", "_blank");
+      break;
+    case 25:
+      window.open("https://www.healthygumz.com/your-result-was-successfully-sent---hight-risk", "_blank");
+      break;
+  }
+  
 
   $.ajax('https://api.emailjs.com/api/v1.0/email/send', {
     type: 'POST',
@@ -506,7 +514,6 @@ function createPdf() {
 
 
   pdfBase64 = doc.output('datauristring');
-  // doc.save("Test.pdf");
 }
 
 //------------ FireBase----------------------
@@ -521,7 +528,6 @@ const firebaseConfig = {
   measurementId: "G-70BZYJ7SXE",
   databaseURL: " https://healthygumzrisktest-default-rtdb.firebaseio.com"
 };
-
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
