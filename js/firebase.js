@@ -18,7 +18,6 @@ const firebaseConfig = {
 
 
 
-
 //---------  Initialize Firebase ----------------------
 const app = firebase.initializeApp(firebaseConfig);
 const db = app.database();
@@ -140,6 +139,7 @@ btnConfirm.addEventListener('click', () => {
     var i=0;
 
     do {
+    // for (i = 0; i < arrayAllReports.length; i++) {
         btnCheckBox = document.querySelector(`[data-id='${arrayAllReports[i].id}'] .checkbox`);
         if (btnCheckBox !== null && btnCheckBox.checked) {
             idName =arrayAllReports[i].id;
@@ -260,6 +260,7 @@ function sortTable(sortRowIndex) {
     switch (sortRowIndex) {
         case 1:
              arrayAllReports.sort((a, b) => a.resultSortIndex-b.resultSortIndex);
+             break;
         case 2:
             arrayAllReports.sort((a, b) => new Date( b.date)- new Date(a.date));
             break;
@@ -278,5 +279,6 @@ function sortTable(sortRowIndex) {
     })
 
 }
+
 
 
