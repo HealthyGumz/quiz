@@ -440,11 +440,11 @@ width: 50%;
  text-decoration:none;
 }
 
-a:hover {
+/* a:hover {
   background: #0651b9; 
   color: white;
   text-decoration:none;
-}
+} */
 
  .tryAgain{
   margin-left: auto;
